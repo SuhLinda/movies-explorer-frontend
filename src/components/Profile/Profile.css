@@ -1,0 +1,130 @@
+.profile {
+  max-width: 410px;
+  margin: 0 auto;
+}
+
+.profile__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 74px auto 123px;
+}
+
+.profile__form {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.profile__form_fieldset {
+  display: grid;
+  grid-template-columns: 141px 1fr;
+  justify-content: space-between;
+  border: none;
+  width: 410px;
+  row-gap: 16px;
+  padding: 0;
+}
+
+.profile__form_signature {
+  grid-column: 1/2;
+  font-size: 11px;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 500;
+}
+
+.profile__form_input {
+  grid-column: 2/3;
+  text-align: right;
+  outline: none;
+  color: #FFFFFF;
+  background-color: #202020;
+  border: none;
+  font-size: 11px;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 400;
+  padding: 0;
+}
+
+.profile__form_border {
+  grid-row: 2;
+  border: #424242 1px solid;
+  width: 410px;
+}
+
+.profile__form_button-edit {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #202020;
+  border: none;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 220px auto 16px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.profile__form_button-edit:hover {
+  opacity: .8;
+}
+
+.profile__form_button-exit {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: #202020;
+  border: none;
+  color: #EE3465;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0 auto;
+  padding: 0;
+  cursor: pointer;
+}
+
+.profile__form_button-exit:hover {
+  opacity: .8;
+}
+
+
+@media screen and (max-width: 768px) {
+  .profile__title {
+    margin: 236px auto 96px;
+  }
+
+  .profile__form_button-edit {
+    margin: 210px auto 16px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .profile__title {
+    margin: 70px auto 80px;
+  }
+
+  .profile__form_fieldset {
+    grid-template-columns: 130px 1fr;
+    width: 260px;
+  }
+
+  .profile__form_border {
+    width: 260px;
+  }
+
+  .profile__form_button-edit {
+    margin: 379px auto 16px;
+  }
+}
