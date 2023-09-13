@@ -14,10 +14,10 @@ function Profile({ isSuccess }) {
   function handleChangeEmail(evt) {
     setEmail(evt.target.value);
   }
-
+/*
   function handleInfoTooltip() {
     setInfoTooltipOpen(true);
-  }
+  }*/
 
   function closeInfoTooltip() {
     setInfoTooltipOpen(false);

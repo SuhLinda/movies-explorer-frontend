@@ -10,9 +10,10 @@ function Login({ isSuccess = false }) {
   const {values, errors, handleChangeForm} = useFormValidation();
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
 
-  function handleInfoTooltip() {
+
+  /*function handleInfoTooltip() {
     setInfoTooltipOpen(true);
-  }
+  }*/
 
   function closeInfoTooltip() {
     setInfoTooltipOpen(false);

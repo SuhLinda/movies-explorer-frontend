@@ -29,7 +29,7 @@ function AboutMe() {
         <img
           className="about-me__info_img"
           src={studentInfoImg}
-          alt="photo"
+          alt="photo_me"
         />
       </div>
     </section>

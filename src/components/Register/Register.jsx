@@ -8,9 +8,10 @@ function Register({isSuccess}) {
   const {values, errors, handleChangeForm} = useFormValidation();
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
 
+  /*
   function handleInfoTooltip() {
     setInfoTooltipOpen(true);
-  }
+  }*/
 
   function closeInfoTooltip() {
     setInfoTooltipOpen(false);
