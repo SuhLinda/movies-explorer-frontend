@@ -97,8 +97,8 @@ CSS:
 
 Сборка проекта:
 - npm i
-- npm build
-- npm start
+- npm run build
+- npm run start
 
 Ссылка на макет: https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=891-3857&mode=design&t=SAUTEJ4fgoT4Jaf7-0
 
