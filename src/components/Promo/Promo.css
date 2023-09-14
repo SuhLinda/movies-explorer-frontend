@@ -94,6 +94,6 @@
 
   .promo__link {
     border-radius: 6px;
-    min-width: 82px;
+    max-width: 82px;
   }
 }
