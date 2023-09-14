@@ -21,7 +21,7 @@ function Navigation({ loggedIn }) {
         onClose={closeBurgerMenuClick}
       />
       <button
-        className="navigation__button_burger-menu"
+        className="navigation__button-burger"
         type="button"
         id="burger-menu_open"
         aria-label="open menu"
@@ -29,50 +29,33 @@ function Navigation({ loggedIn }) {
       </button>
       {loggedIn ? (
         <>
-          <ul className="navigation__links">
-            <div className="navigation__links_container">
-              <Link
-                to='/movies'
-                className={location === '/movies' ? 'navigation__link_active' : 'navigation__link'}>
-                Фильмы
-              </ Link>
-              <Link
-                to='/saved-movies'
-                className={location === '/saved-movies' ? 'navigation__link_active' : 'navigation__link'}>
-                Сохранённые фильмы
-              </ Link>
-            </div>
-          </ul>
+          <div className="navigation__links_container">
+            <Link
+              to='/movies'
+              className={location === '/movies' ? 'link_active' : 'link'}>
+              Фильмы
+            </ Link>
+            <Link
+              to='/saved-movies'
+              className={location === '/saved-movies' ? 'link_active' : 'link'}>
+              Сохранённые фильмы
+            </ Link>
+          </div>
           <Link
             to='/profile'
-            className="navigation__link">
-            <button
-              className="navigation__profile"
-              id="navigation__profile-button"
-              type="button"
-              aria-label="login">
-            </button>
-          </ Link>
+            className="link navigation__profile" />
         </>
       ) : (
         <>
-          <ul className="navigation__auth">
-            <Link
-              to='/signup'
-              className="navigation__registration">
-              Регистрация
-            </ Link>
-          </ul>
-          <Link to='/signin'>
-            <button
-              className="navigation__button-entrance"
-              id="button_entrance"
-              type="button"
-              aria-label="open">
-              <p className="navigation__button-entrance_text">
-                Войти
-              </p>
-            </button>
+          <Link
+            to='/signup'
+            className="navigation__registration">
+            Регистрация
+          </ Link>
+          <Link
+            to='/signin'
+            className="navigation__login">
+            Войти
           </ Link>
         </>
       )}

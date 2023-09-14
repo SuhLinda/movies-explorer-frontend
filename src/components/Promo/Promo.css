@@ -31,27 +31,28 @@
   margin: 0 auto 30px;
 }
 
-.promo__links {
+.promo__navigation-links {
   display: flex;
   align-items: center;
   text-align: center;
   margin: 0;
 }
 
-.promo__links_link {
+.promo__link {
   text-decoration: none;
   color: #FFFFFF;
   border-radius: 10px;
   background-color: #303030;
-  min-width: 96px;
+  width: 96px;
   cursor: pointer;
 }
 
-.promo__links_link:hover {
+.promo__link:hover {
   opacity: .7;
 }
 
-.promo__links_text {
+.promo__text {
+  max-width: 96px;
   margin: 10px auto;
 }
 
@@ -91,7 +92,7 @@
     margin: 0 auto 17px;
   }
 
-  .promo__links_link {
+  .promo__link {
     border-radius: 6px;
     min-width: 82px;
   }

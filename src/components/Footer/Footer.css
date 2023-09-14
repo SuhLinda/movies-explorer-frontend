@@ -28,14 +28,23 @@
   line-height: normal;
 }
 
-.footer__container_link {
+.footer__text {
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+.footer-container-link {
   color: #FFFFFF;
   text-decoration: none;
   cursor: pointer;
   margin: 0;
 }
 
-.footer__container_link:hover {
+.footer-container-link:hover {
   opacity: .7;
 }
 
@@ -59,6 +68,10 @@
 @media screen and (max-width: 400px) {
   .footer {
     margin: 79px 10px 0;
+  }
+
+  .footer__text {
+    font-size: 12px;
   }
 
   .footer__title {

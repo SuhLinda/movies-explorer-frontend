@@ -19,29 +19,29 @@ function BurgerMenu({ isOpen, onClose }) {
         <div className="burger-menu__links">
           <Link
             to='/'
-            className={location === '/' ? 'burger-menu__link_active' : 'burger-menu__link'}>
-            Главная
+            className={location === '/' ? 'link-active' : 'link'}>
+            <h2 className="link-title">
+              Главная
+            </h2>
           </ Link>
           <Link
             to='/movies'
-            className={location === '/movies' ? 'burger-menu__link_active' : 'burger-menu__link'}>
-            Фильмы
+            className={location === '/movies' ? 'link-active' : 'link'}>
+            <h2 className="link-title">
+              Фильмы
+            </h2>
           </ Link>
           <Link
             to='/saved-movies'
-            className={location === '/saved-movies' ? 'burger-menu__link_active' : 'burger-menu__link'}>
-            Сохранённые фильмы
+            className={location === '/saved-movies' ? 'link-active' : 'link'}>
+            <h2 className="link-title">
+              Сохранённые фильмы
+            </h2>
           </ Link>
         </div>
         <Link
-          to='/profile'>
-          <button
-            className="burger-menu__button"
-            id="navigation__profile-button"
-            type="button"
-            aria-label="open">
-          </button>
-        </ Link>
+          to='/profile'
+          className="burger-menu__button" />
       </div>
     </section>
   )

@@ -1,4 +1,4 @@
-.info__tooltip {
+.info-tooltip {
   display: flex;
   visibility: hidden;
   opacity: 0;
@@ -18,12 +18,12 @@
   transition: visibility .5s, opacity .5s linear;
 }
 
-.info__tooltip_opened {
+.info-tooltip_opened {
   visibility: visible;
   opacity: 1;
 }
 
-.info__tooltip_container {
+.info-tooltip-container {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -35,7 +35,7 @@
   margin: 0;
 }
 
-.info__tooltip_button-close {
+.tooltip-button-close {
   display: flex;
   position: absolute;
   border: none;
@@ -54,11 +54,11 @@
   cursor: pointer;
 }
 
-.info__tooltip_button-close:hover {
+.tooltip-button-close:hover {
   opacity: .8;
 }
 
-.info__tooltip_img {
+.tooltip-img {
   width: 120px;
   height: 120px;
   background-color: #FFFFFF;
@@ -66,7 +66,7 @@
   border: none;
 }
 
-.info__tooltip_text {
+.tooltip-text {
   width: 358px;
   height: 58px;
   font-style: normal;
@@ -79,7 +79,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .info__tooltip_button-close {
+  .tooltip-button-close {
     min-width: 20px;
     min-height: 20px;
     right: 0;

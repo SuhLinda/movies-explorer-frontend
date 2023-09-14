@@ -7,11 +7,11 @@ function InfoTooltip({ isLogged, isOpen, onClose }) {
   useClosePopup(isOpen, onClose);
 
   return (
-    <div className={`info__tooltip ${isOpen ? 'info__tooltip_opened' : ""}`}>
-      <div className="info__tooltip_container">
+    <div className={`info-tooltip ${isOpen ? 'info__tooltip_opened' : ""}`}>
+      <div className="info-tooltip-container">
         <button
-          className="info__tooltip_button-close"
-          id="info__tooltip_button-close"
+          className="tooltip-button-close"
+          id="tooltip-button-close"
           type="button"
           aria-label="close"
           onClick={onClose}>
@@ -19,22 +19,22 @@ function InfoTooltip({ isLogged, isOpen, onClose }) {
         {isLogged ? (
           <>
             <img
-              className="info__tooltip_img"
+              className="tooltip-img"
               src={imageInfoTooltipSuccess}
               alt="Вы успешно зарегистрировались!"
             />
-            <h2 className="info__tooltip_text">
+            <h2 className="tooltip-text">
               Вы успешно зарегистрировались!
             </h2>
           </>
         ) : (
           <>
             <img
-              className="info__tooltip_img"
+              className="tooltip-img"
               src={imageInfoTooltipUnSuccess}
               alt="Что-то пошло не так!"
             />
-            <h2 className="info__tooltip_text">
+            <h2 className="tooltip-text">
               Что-то пошло не так!
             </h2>
           </>

@@ -22,21 +22,23 @@
   margin: 70px 70px 0;
 }
 
-.about-project__container_title {
+.container-title {
   grid-row: 1/2;
   font-size: 20px;
   font-style: normal;
   line-height: normal;
   font-weight: 400;
   letter-spacing: -0.8px;
+  max-width: 550px;
   margin: 0;
 }
 
-.about-project__container_subtitle {
+.container-subtitle {
   font-size: 14px;
   font-style: normal;
   line-height: 20px;
   font-weight: 400;
+  max-width: 550px;
   margin: 0;
 }
 
@@ -48,7 +50,7 @@
   margin: 110px 70px 110px;
 }
 
-.about-project__period_title {
+.period-title {
   color: #000;
   font-size: 14px;
   font-weight: 400;
@@ -58,20 +60,23 @@
   margin: 0;
 }
 
-.about-project__period_title-green {
+.period-title-green {
   background-color: #3DDC84;
+  max-width: 228px;
 }
 
-.about-project__period_title-grey {
+.period-title-grey {
   background-color: #303030;
+  max-width: 912px;
   color: #FFFFFF;
 }
 
-.about-project__period_subtitle {
+.period-subtitle {
   color: #8B8B8B;
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
+  max-width: 200px;
   margin: 0;
 }
 
@@ -86,15 +91,11 @@
     margin: 70px 50px 0;
   }
 
-  .about-project__container_subtitle {
+  .container-subtitle {
     font-size: 12px;
     font-style: normal;
+    font-weight: 400;
     line-height: 18px;
-  }
-
-  .about-project__container_subtitle {
-    font-size: 11px;
-    line-height: 16px;
     margin-bottom: 40px;
   }
 
@@ -103,7 +104,7 @@
     margin: 93px 50px 90px;
   }
 
-  .about-project__period_subtitle {
+  .period-subtitle {
     color: #A0A0A0;
     font-weight: 400;
   }
@@ -122,7 +123,7 @@
     row-gap: 16px;
   }
 
-  .about-project__container_title {
+  .container-title {
     font-size: 18px;
     font-style: normal;
     letter-spacing: -0.72px;
@@ -134,11 +135,11 @@
     row-gap: 10px;
   }
 
-  .about-project__period_title {
+  .period-title {
     font-size: 11px;
   }
 
-  .about-project__period_subtitle {
+  .period-subtitle {
     font-size: 11px;
     line-height: normal;
   }

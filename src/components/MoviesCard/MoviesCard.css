@@ -78,6 +78,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  max-width: 250px;
   margin: 14px 0 0 14px;
 }
 
@@ -90,7 +91,7 @@
   font-weight: 400;
   line-height: 10px;
   text-align: center;
-  width: 52px;
+  max-width: 52px;
   padding-top: 4px;
   padding-bottom: 4px;
   margin: 14px 18px 0 auto;

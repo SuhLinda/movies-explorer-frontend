@@ -13,39 +13,39 @@ function Techs() {
         На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.
       </p>
       <div className="techs__container">
-        <ul className="techs__container_lists">
-          <li className="techs__container_list">
-            <p className="techs__container_text">
+        <ul className="lists">
+          <li className="lists__item">
+            <p className="lists__text">
               HTML
             </p>
           </li>
-          <li className="techs__container_list">
-            <p className="techs__container_text">
+          <li className="lists__item">
+          <p className="lists__text">
               CSS
             </p>
           </li>
-          <li className="techs__container_list">
-            <p className="techs__container_text">
+          <li className="lists__item">
+            <p className="lists__text">
               JS
             </p>
           </li>
-          <li className="techs__container_list">
-            <p className="techs__container_text">
+          <li className="lists__item">
+            <p className="lists__text">
               React
             </p>
           </li>
-          <li className="techs__container_list">
-            <p className="techs__container_text">
+          <li className="lists__item">
+            <p className="lists__text">
               Git
             </p>
           </li>
-          <li className="techs__container_list">
-            <p className="techs__container_text">
+          <li className="lists__item">
+            <p className="lists__text">
               Express.js
             </p>
           </li>
-          <li className="techs__container_list">
-            <p className="techs__container_text">
+          <li className="lists__item">
+            <p className="lists__text">
               mongoDB
             </p>
           </li>

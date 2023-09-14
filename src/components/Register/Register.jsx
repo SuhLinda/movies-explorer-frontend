@@ -35,12 +35,16 @@ function Register({isSuccess}) {
           src={headerLogo}
           alt="logo"/>
       </Link>
-      <h2 className="register__title">Добро пожаловать!</h2>
+      <h2 className="register__title">
+        Добро пожаловать!
+      </h2>
       <form className="register__form">
-        <fieldset className="register__form_fieldset">
-          <label className="register__form_signature">Имя</label>
+        <fieldset className="register__fieldset">
+          <label className="register-form-signature">
+            Имя
+          </label>
           <input
-            className="register__form_input"
+            className="register__input"
             type="text"
             id="name"
             name="name"
@@ -50,9 +54,11 @@ function Register({isSuccess}) {
             required
             onChange={handleChangeForm}
           />
-          <label className="register__form_signature">E-mail</label>
+          <label className="register-form-signature">
+            E-mail
+          </label>
           <input
-            className="register__form_input"
+            className="register__input"
             type="email"
             id="email"
             name="email"
@@ -60,9 +66,11 @@ function Register({isSuccess}) {
             required
             onChange={handleChangeForm}
           />
-          <label className="register__form_signature">Пароль</label>
+          <label className="register-form-signature">
+            Пароль
+          </label>
           <input
-            className="register__form_input register__form_password"
+            className="register__input register__password"
             type="password"
             id="password"
             name="password"
@@ -71,9 +79,15 @@ function Register({isSuccess}) {
             required
             onChange={handleChangeForm}
           />
-          <span className="register__form_error_active">{errors.name}</span>
-          <span className="register__form_error_active">{errors.email}</span>
-          <span className="register__form_error_active">{errors.password}</span>
+          <span className="register__error-active">
+            {errors.name}
+          </span>
+          <span className="register__error-active">
+            {errors.email}
+          </span>
+          <span className="register__error-active">
+            {errors.password}
+          </span>
         </fieldset>
       </form>
       <button

@@ -41,40 +41,42 @@ function Profile({ isSuccess }) {
           Привет, Линда!
         </h2>
         <form className="profile__form">
-          <fieldset className="profile__form_fieldset">
-            <span className="profile__form_signature">
+          <fieldset className="profile__fieldset">
+            <label className="profile__signature">
               Имя
-            </span>
+            </label>
             <input
-              className="profile__form_input"
+              className="profile__input"
               type="text"
               id="profile-name"
               name="profile-name"
               value={name || ""}
+              required
               onChange={handleChangeName}
             />
-            <span className="profile__form_border"></span>
-            <span className="profile__form_signature">
+            <span className="profile__border"></span>
+            <label className="profile__signature">
               E-mail
-            </span>
+            </label>
             <input
-              className="profile__form_input"
+              className="profile__input"
               type="email"
               id="profile-email"
               name="profile-email"
               value={email || ""}
+              required
               onChange={handleChangeEmail}
             />
           </fieldset>
         </form>
         <button
-          className="profile__form_button-edit"
+          className="profile__button-edit"
           type="submit"
           aria-label="edit">
           Редактировать
         </button>
         <button
-          className="profile__form_button-exit"
+          className="profile__button-exit"
           type="submit"
           aria-label="logOut">
           Выйти из аккаунта

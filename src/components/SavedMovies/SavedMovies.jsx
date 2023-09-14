@@ -3,7 +3,7 @@ import Header from '../Header/Header.jsx'
 import SearchForm from '../SearchForm/SearchForm.jsx';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import Footer from '../Footer/Footer.jsx';
-import {savedMovies} from "../../utils/cardsMoviesList";
+import { savedMovies } from "../../utils/cardsMoviesList";
 
 function SavedMovies() {
   return (

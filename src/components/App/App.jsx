@@ -8,7 +8,6 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import ErrorNotFound from '../ErrorNotFound/ErrorNotFound.jsx';
 
-
 function App() {
   return (
     <div className="app">

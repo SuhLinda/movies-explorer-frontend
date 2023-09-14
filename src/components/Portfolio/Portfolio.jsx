@@ -9,32 +9,38 @@ function Portfolio() {
           Портфолио
         </h3>
         <ul className="portfolio__container">
-          <li className="portfolio__container_links">
+          <li className="container-links">
             <Link
               to='https://suhlinda.github.io/how-to-learn/'
-              className="portfolio__container_link">
+              className="container-link"
+              target="_blank"
+              rel="noreferrer">
               Статичный сайт
-              <span className="portfolio__container_copyright">
+              <span className="container-copyright">
                 ↗
               </span>
             </ Link>
           </li>
-          <li className="portfolio__container_links">
+          <li className="container-links">
             <Link
               to='https://suhlinda.github.io/russian-travel'
-              className="portfolio__container_link">
+              className="container-link"
+              target="_blank"
+              rel="noreferrer">
               Адаптивный сайт
-              <span className="portfolio__container_copyright">
+              <span className="container-copyright">
                 ↗
               </span>
             </ Link>
           </li>
-          <li className="portfolio__container_links">
+          <li className="container-links">
             <Link
               to='https://github.com/SuhLinda/react-mesto-api-full-gha'
-              className="portfolio__container_link">
+              className="container-link"
+              target="_blank"
+              rel="noreferrer">
               Одностраничное приложение
-              <span className="portfolio__container_copyright">
+              <span className="container-copyright">
                 ↗
               </span>
             </ Link>

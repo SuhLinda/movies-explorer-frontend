@@ -27,7 +27,7 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 550px) {
   .header {
     margin: 0 14px;
   }

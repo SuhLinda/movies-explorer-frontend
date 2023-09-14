@@ -41,12 +41,12 @@ function Login({ isSuccess = false }) {
         Рады видеть!
       </h2>
       <form className="register__form">
-        <fieldset className="register__form_fieldset">
-          <label className="register__form_signature">
+        <fieldset className="register__fieldset">
+          <label className="register-form-signature">
             E-mail
           </label>
           <input
-            className="register__form_input"
+            className="register__input"
             type="email"
             id="email"
             name="email"
@@ -54,11 +54,11 @@ function Login({ isSuccess = false }) {
             onChange={handleChangeForm}
             required
           />
-          <label className="register__form_signature">
+          <label className="register-form-signature">
             Пароль
           </label>
           <input
-            className="register__form_input register__form_password"
+            className="register__input register__password"
             type="password"
             id="password"
             name="password"
@@ -67,10 +67,10 @@ function Login({ isSuccess = false }) {
             onChange={handleChangeForm}
             required
           />
-          <span className="register__form_error_active">
+          <span className="register__error-active">
             {errors.email}
           </span>
-          <span className="register__form_error_active">
+          <span className="register__error-active">
             {errors.password}
           </span>
         </fieldset>
