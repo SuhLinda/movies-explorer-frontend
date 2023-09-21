@@ -3,17 +3,18 @@ import { useLocation } from 'react-router-dom';
 import { convertMinutesToHours } from '../../../utils/functions.jsx';
 import { mainApi } from '../../../utils/MainApi.jsx';
 
-function MoviesCard({movie, isSavedMovies, setIsSavedMovies, key, onDelete}) {
+function MoviesCard({movie, onDelete, savedMovies, setSavedMovies}) {
   const imgSrc = movie.image.url ? `https://api.nomoreparties.co/${movie.image.url}` : movie.image;
   const changeButton = location.pathname === '/savedMovies';
   const [isSavedMovie, setIsSavedMovie] = useState(movie.saved);
 
   const location = useLocation();
 
-  function handleMovieDelete(movie) {
+
+  /*function handleMovieDelete(movie) {
     setIsSavedMovie(true);
 
-    const findMovie = isSavedMovies.find((item) =>
+    const findMovie = savedMovies.find((item) =>
       item.movieId === movie.id
     );
     const movieId = findMovie._id;
@@ -21,13 +22,13 @@ function MoviesCard({movie, isSavedMovies, setIsSavedMovies, key, onDelete}) {
     mainApi.deleteMovie(movieId)
       .then(() => {
         setIsSavedMovie(false);
-        setIsSavedMovies((state) =>
+        setSavedMovies((state) =>
           state.filter((m) =>
             m._id !== movieId
           )
         )
 
-        localStorage.setItem('savedMovies', JSON.stringify(isSavedMovies.filter((item) =>
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies.filter((item) =>
           item._id !== movieId
         )))
       })
@@ -36,7 +37,7 @@ function MoviesCard({movie, isSavedMovies, setIsSavedMovies, key, onDelete}) {
         console.log(err);
 
       })
-  }
+  }*/
 
   function handleMovieSave(movie) {
     setIsSavedMovie(false);
@@ -56,7 +57,7 @@ function MoviesCard({movie, isSavedMovies, setIsSavedMovies, key, onDelete}) {
     })
       .then((res) => {
         setIsSavedMovie(true)
-        setIsSavedMovies([...res, isSavedMovies]);
+        setSavedMovies([...res, savedMovies]);
       })
       .catch((err) => {
         setIsSavedMovie(false);
@@ -67,7 +68,7 @@ function MoviesCard({movie, isSavedMovies, setIsSavedMovies, key, onDelete}) {
   function handleMovieClick() {
     if (!changeButton) {
       if (isSavedMovie) {
-        handleMovieDelete(movie);
+        //handleMovieDelete(movie);
       } else {
         return handleMovieSave(movie);
       }
@@ -94,7 +95,8 @@ function MoviesCard({movie, isSavedMovies, setIsSavedMovies, key, onDelete}) {
           <button
             className="movies-card__button-close"
             type="button"
-            aria-label="close">
+            aria-label="close"
+            onClick={onDelete}>
           </button>
         <img
           className="movies-card__img"

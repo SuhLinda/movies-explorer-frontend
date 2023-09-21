@@ -1,25 +1,23 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox.jsx';
 
 import useFormValidation from '../../../hooks/useFormValidation.jsx';
-import React from "react";
 
-function SearchForm({onSearch, isSearch, setIsSearchErr, setIsSearch, isShortFilm, onchangeCheckBox}) {
-  const {values, errors, isValid, handleChangeForm} = useFormValidation();
+function SearchForm({onSearch, search, setSearch, setIsSearchErr, shortFilm, onchangeCheckBox}) {
 
-  const [isInputErr, setIsInputErr] = useState(false);
+  const [isErr, setIsErr] = useState(false);
 
   function handleSearchChange(evt) {
-    setIsSearch(evt.target.value);
-    setIsInputErr(false);
+    setSearch(evt.target.value);
+    setIsErr(false);
   }
 
   function handleSearchSubmit(evt) {
     evt.preventDefault();
 
-    if(!isSearch) {
-      setIsInputErr(true);
+    if(!search) {
+      setIsErr(true);
       setIsSearchErr('');
       return;
     }
@@ -37,20 +35,20 @@ return (
           name="search"
           placeholder="Фильм"
           onChange={handleSearchChange}
-          value={isSearch}
-          required/>
+          value={search}
+        />
         <button
           className="search-form__button"
           type="submit"
           aria-label="search">
         </button>
         <span
-          className={`search-form__error ${isInputErr ? 'search-form__error-active' : ''}`}>
-          нужно ввести ключевое слово
+          className={`search-form__error ${isErr ? 'search-form__error-active' : ''}`}>
+          Нужно ввести ключевое слово!
         </span>
       </fieldset>
       <FilterCheckbox
-        checked={isShortFilm}
+        checked={shortFilm}
         onChange={onchangeCheckBox}
       />
     </form>

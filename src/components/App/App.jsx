@@ -79,7 +79,8 @@ function App() {
           <Route
             path='/saved-movies'
             element={
-              <SavedMovies/>
+              <SavedMovies isLoggedIn={isLoggedIn
+              }/>
             }
           />
           <Route
