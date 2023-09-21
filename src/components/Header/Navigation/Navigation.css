@@ -48,7 +48,7 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border: none;
-  background-image: url("../../images/navigation__profile.svg");
+  background-image: url("../../../images/navigation__profile.svg");
   width: 100px;
   height: 32px;
   background-color: #313131;
@@ -92,7 +92,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  background-image: url("../../images/navigation__button-entrance.svg");
+  background-image: url("../../../images/navigation__button-entrance.svg");
   background-color: #202020;
   border-radius: 3px;
   border: none;
@@ -150,7 +150,7 @@
 @media screen and (max-width: 768px) {
   .navigation__links,
   .navigation__links_container,
-  .link,
+
   .navigation__profile,
   .navigation__registration,
   .navigation__login {
@@ -162,7 +162,7 @@
     border-radius: 0;
     height: 44px;
     width: 44px;
-    background-image: url("../../images/navigation__burger-menu.svg");
+    background-image: url("../../../images/navigation__burger-menu.svg");
     border: none;
     padding: 0;
     margin: 0;

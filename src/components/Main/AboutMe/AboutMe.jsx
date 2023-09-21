@@ -1,4 +1,4 @@
-import studentInfoImg from '../../images/about-me__info_img.jpeg';
+import studentInfoImg from '../../../images/about-me__info_img.jpeg';
 
 function AboutMe() {
   return (

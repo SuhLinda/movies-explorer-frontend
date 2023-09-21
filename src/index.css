@@ -10,43 +10,43 @@
 @import url(../src/components/Header/Header.css);
 
 /* burger-menu */
-@import url(../src/components/BurgerMenu/BurgerMenu.css);
+@import url(../src/components/Header/BurgerMenu/BurgerMenu.css);
 
 /* navigation */
-@import url(../src/components/Navigation/Navigation.css);
+@import url(../src/components/Header/Navigation/Navigation.css);
 
 /* promo */
-@import url(../src/components/Promo/Promo.css);
+@import url(../src/components/Main/Promo/Promo.css);
 
 /* AboutProject */
-@import url(../src/components/AboutProject/AboutProject.css);
+@import url(../src/components/Main/AboutProject/AboutProject.css);
 
 /* techs */
-@import url(../src/components/Techs/Techs.css);
+@import url(../src/components/Main/Techs/Techs.css);
 
 /* AboutMe */
-@import url(../src/components/AboutMe/AboutMe.css);
+@import url(../src/components/Main/AboutMe/AboutMe.css);
 
 /* Portfolio */
-@import url(../src/components/Portfolio/Portfolio.css);
+@import url(../src/components/Main/Portfolio/Portfolio.css);
 
 /* search-form */
-@import url(../src/components/SearchForm/SearchForm.css);
+@import url(../src/components/Movies/SearchForm/SearchForm.css);
 
 /* filter-checkbox */
-@import url(../src/components/FilterCheckbox/FilterCheckbox.css);
+@import url(../src/components/Movies/FilterCheckbox/FilterCheckbox.css);
 
 /* preloader */
-@import url(../src/components/Preloader/Preloader.css);
+@import url(../src/components/Movies/Preloader/Preloader.css);
 
 /* movies-card-list */
-@import url(../src/components/MoviesCardList/MoviesCardList.css);
+@import url(../src/components/Movies/MoviesCardList/MoviesCardList.css);
 
 /* movies-card */
-@import url(../src/components/MoviesCard/MoviesCard.css);
+@import url(../src/components/Movies/MoviesCard/MoviesCard.css);
 
 /* more-movie-card */
-@import url(../src/components/MoreMovieCards/MoreMovieCards.css);
+@import url(../src/components/Movies/MoreMovieCards/MoreMovieCards.css);
 
 /* register */
 @import url(../src/components/Register/Register.css);
@@ -64,4 +64,4 @@
 @import url(../src/components/ErrorNotFound/ErrorNotFound.css);
 
 /* infoTooltip */
-@import url(../src/components/InfoTooltip/InfiTooltip.css);
+@import url(../src/components/InfoTooltip/InfoTooltip.css);

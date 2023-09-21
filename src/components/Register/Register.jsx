@@ -1,44 +1,74 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import headerLogo from '../../images/header__logo.svg';
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import useFormValidation from '../../hooks/useFormValidation.jsx';
-import InfoTooltip from "../InfoTooltip/InfiTooltip";
 
-function Register({isSuccess}) {
-  const {values, errors, handleChangeForm} = useFormValidation();
-  const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
+import headerLogo from '../../images/header__logo.svg';
+import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
+import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
-  /*
-  function handleInfoTooltip() {
-    setInfoTooltipOpen(true);
-  }*/
+import { mainApi } from '../../utils/MainApi.jsx';
 
-  function closeInfoTooltip() {
-    setInfoTooltipOpen(false);
+function Register(
+  {
+    setCurrentUser,
+    setIsLoggedIn,
+    setImage,
+    setText,
+    navigate,
+    openInfoTooltip
+  }) {
+  const {
+    values,
+    errors,
+    isValid,
+    handleChangeForm
+  } = useFormValidation();
+
+  async function onRegister({ name, email, password }) {
+    try {
+      const userRegistration = await mainApi.registration(name, email, password);
+      if (userRegistration) {
+        setCurrentUser(userRegistration);
+        setIsLoggedIn(true);
+        setImage(imageInfoTooltipSuccess);
+        setText('Вы успешно зарегистрировались!');
+        navigate('/movies', {replace: true});
+      }
+    } catch (res) {
+      setIsLoggedIn(false);
+      setImage(imageInfoTooltipUnSuccess);
+      setText('Что-то пошло не так! Попробуйте ещё раз!');
+      console.log(`ошибка: ${res}`);
+    } finally {
+      openInfoTooltip();
+    }
+  }
+
+  function handleSubmitRegister(evt) {
+    evt.preventDefault();
+
+    return onRegister({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    })
   }
 
   return (
     <section className="register">
-      {isSuccess ?
-        <InfoTooltip
-          isOpen={isInfoTooltipOpen}
-          onClose={closeInfoTooltip}
-        /> :
-        <InfoTooltip
-          isOpen={isInfoTooltipOpen}
-          onClose={closeInfoTooltip}
-        />
-      }
       <Link to='/'>
         <img
           className="register__logo"
           src={headerLogo}
           alt="logo"/>
-      </Link>
+      </ Link>
       <h2 className="register__title">
         Добро пожаловать!
       </h2>
-      <form className="register__form">
+      <form
+        className="register__form"
+        onSubmit={handleSubmitRegister}>
         <fieldset className="register__fieldset">
           <label className="register-form-signature">
             Имя
@@ -54,6 +84,9 @@ function Register({isSuccess}) {
             required
             onChange={handleChangeForm}
           />
+          <span className="register__error-active">
+            {errors.name}
+          </span>
           <label className="register-form-signature">
             E-mail
           </label>
@@ -66,6 +99,9 @@ function Register({isSuccess}) {
             required
             onChange={handleChangeForm}
           />
+          <span className="register__error-active">
+            {errors.email}
+          </span>
           <label className="register-form-signature">
             Пароль
           </label>
@@ -80,29 +116,24 @@ function Register({isSuccess}) {
             onChange={handleChangeForm}
           />
           <span className="register__error-active">
-            {errors.name}
-          </span>
-          <span className="register__error-active">
-            {errors.email}
-          </span>
-          <span className="register__error-active">
             {errors.password}
           </span>
         </fieldset>
+        <button
+          className={`register__button ${isValid ? 'register__button_active' : ''}`}
+          type="submit"
+          aria-label="register"
+          disabled={!isValid}>
+          Зарегистрироваться
+        </button>
       </form>
-      <button
-        className="register__button"
-        type="submit"
-        aria-label="register">
-        Зарегистрироваться
-      </button>
       <p className="register__text">
         Уже зарегистрированы?
         <Link to='/signin' className="register__link">
           <span className="register__signature">
             Войти
           </span>
-        </Link>
+        </ Link>
       </p>
     </section>
   )

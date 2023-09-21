@@ -1,86 +1,137 @@
-import { useState } from 'react';
+import {useContext, useState, useEffect} from 'react';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext.jsx';
 import Header from '../Header/Header.jsx';
-import InfoTooltip from "../InfoTooltip/InfiTooltip";
+import useFormValidation from '../../hooks/useFormValidation.jsx';
+import {mainApi} from '../../utils/MainApi.jsx';
+import {Link} from "react-router-dom";
+import imageInfoTooltipSuccess from "../../images/info-tooltip_successfully.svg";
+import imageInfoTooltipUnSuccess from "../../images/info-tooltip_unsuccessfully.svg";
 
-function Profile({ isSuccess }) {
-  const [name, setName] = useState('Имя');
-  const [email, setEmail] = useState('pochta@yandex.ru');
-  const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
+function Profile({ setCurrentUser,openInfoTooltip, setImage, setText, isLoggedIn, setIsLoggedIn}) {
+  const currentUser = useContext(CurrentUserContext);
 
-  function handleChangeName(evt) {
-    setName(evt.target.value);
+  const {
+    values,
+    errors,
+    isValid,
+    handleChangeForm,
+    resetFormValues,
+  } = useFormValidation();
+
+  const checkingValues = (!isValid || (currentUser.name === values.name && currentUser.email === values.email))
+
+  useEffect(() => {
+    mainApi.getUserMe()
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+      })
+      .catch(() => {
+        setIsLoggedIn(false);
+      })
+  }, [isLoggedIn]);
+
+  async function onProfile({name, email}) {
+    try {
+      const newUser = await mainApi.updateProfile(name, email)
+      if (newUser) {
+        setCurrentUser(newUser)
+        setIsLoggedIn(true)
+        setImage(imageInfoTooltipSuccess);
+        setText('Изменения успешно сохранены!');
+      }
+    } catch (res) {
+      setIsLoggedIn(false)
+      setImage(imageInfoTooltipUnSuccess);
+      setText('Что-то пошло не так! Попробуйте ещё раз!');
+      console.log(`ошибка: ${res}`);
+    } finally {
+      openInfoTooltip()
+    }
   }
 
-  function handleChangeEmail(evt) {
-    setEmail(evt.target.value);
-  }
-/*
-  function handleInfoTooltip() {
-    setInfoTooltipOpen(true);
-  }*/
+  async function handleSubmitProfile(evt) {
+    evt.preventDefault();
 
-  function closeInfoTooltip() {
-    setInfoTooltipOpen(false);
+    await onProfile({
+      name: values.name,
+      email: values.email,
+    })
+  }
+
+  async function logOut() {
+    try {
+      const userLogOut = await mainApi.logout()
+      if (userLogOut) {
+        setCurrentUser({});
+        setIsLoggedIn(false);
+        localStorage.clear();
+      }
+    } catch (res) {
+      console.log(`ошибка: ${res}`);
+    }
   }
 
   return (
     <>
-      {isSuccess ?
-        <InfoTooltip
-          isOpen={isInfoTooltipOpen}
-          onClose={closeInfoTooltip}
-        /> :
-        <InfoTooltip
-          isOpen={isInfoTooltipOpen}
-          onClose={closeInfoTooltip}
-        />
-      }
-      <Header/>
+      <Header
+        isLoggedIn={isLoggedIn}/>
       <section className="profile">
         <h2 className="profile__title">
-          Привет, Линда!
+          Привет, {currentUser.name || 'имя'}!
         </h2>
-        <form className="profile__form">
+        <form className="profile__form" onSubmit={handleSubmitProfile}>
           <fieldset className="profile__fieldset">
-            <label className="profile__signature">
-              Имя
-            </label>
-            <input
-              className="profile__input"
-              type="text"
-              id="profile-name"
-              name="profile-name"
-              value={name || ""}
-              required
-              onChange={handleChangeName}
-            />
+            <div className="profile__container">
+              <label className="profile__signature">
+                Имя
+              </label>
+              <input
+                className="profile__input"
+                type="text"
+                id="name"
+                name="name"
+                minLength="2"
+                maxLength="30"
+                placeholder="имя"
+                value={values.name || ""}
+                required
+                onChange={handleChangeForm}
+              />
+              <span className="profile__error-active">{errors.name}</span>
+            </div>
             <span className="profile__border"></span>
-            <label className="profile__signature">
-              E-mail
-            </label>
-            <input
-              className="profile__input"
-              type="email"
-              id="profile-email"
-              name="profile-email"
-              value={email || ""}
-              required
-              onChange={handleChangeEmail}
-            />
+            <div className="profile__container">
+              <label className="profile__signature">
+                E-mail
+              </label>
+              <input
+                className="profile__input"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email"
+                value={values.email || ""}
+                required
+                onChange={handleChangeForm}
+              />
+              <span className="profile__error-active">{errors.email}</span>
+            </div>
           </fieldset>
+          <button
+            className={`profile__button-edit ${isValid ? 'profile__button-edit_active' : ''}`}
+            type="submit"
+            aria-label="edit"
+            disabled={checkingValues}>
+            Редактировать
+          </button>
+          <Link
+            to='/'
+            className="profile__link-exit"
+            onClick={logOut}>
+            Выйти из аккаунта
+          </Link>
         </form>
-        <button
-          className="profile__button-edit"
-          type="submit"
-          aria-label="edit">
-          Редактировать
-        </button>
-        <button
-          className="profile__button-exit"
-          type="submit"
-          aria-label="logOut">
-          Выйти из аккаунта
-        </button>
       </section>
     </>
   )

@@ -1,9 +1,11 @@
-import Header from '../Header/Header.jsx';
+import Header from '../../Header/Header.jsx';
 
-function Promo() {
+function Promo({isLoggedIn}) {
   return (
     <>
-      <Header/>
+      <Header
+        isLoggedIn={isLoggedIn}
+      />
       <section className="promo">
         <h1 className="promo__title">
           Учебный проект студента факультета Веб-разработки.

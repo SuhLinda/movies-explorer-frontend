@@ -1,4 +1,4 @@
-function FilterCheckbox({ checked }) {
+function FilterCheckbox({checked, onChange}) {
 
   return (
     <div className="filter-checkbox">
@@ -7,7 +7,8 @@ function FilterCheckbox({ checked }) {
         id="checkbox"
         aria-label="checkbox"
         type="checkbox"
-        checked={checked}>
+        checked={checked}
+        onChange={onChange}>
       </input>
       <label className="filter-checkbox__text">
         Короткометражки

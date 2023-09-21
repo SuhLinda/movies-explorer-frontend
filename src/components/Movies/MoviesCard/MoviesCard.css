@@ -32,7 +32,7 @@
   z-index: 2;
   grid-column: 2/3;
   grid-row: 1/2;
-  background-image: url("../../images/movies-card__button-checkmark.svg");
+  background-image: url("../../../images/movies-card__button-checkmark.svg");
   border: none;
   border-radius: 30px;
   width: 21px;
@@ -50,7 +50,7 @@
   opacity: 0;
   grid-column: 2/3;
   grid-row: 1/2;
-  background-image: url("../../images/movies-card__button-close.svg");
+  background-image: url("../../../images/movies-card__button-close.svg");
   border: none;
   border-radius: 30px;
   width: 21px;

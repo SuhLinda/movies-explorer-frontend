@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Navigation from '../Navigation/Navigation.jsx';
+import Navigation from './Navigation/Navigation.jsx';
 
 import headerLogo from '../../images/header__logo.svg';
 

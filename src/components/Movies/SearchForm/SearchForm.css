@@ -32,13 +32,13 @@
 }
 
 .search-form__input:focus {
-  color: #3DDC84;
+  color: #FFFFFF;
   border: #3DDC84 1px solid;
 }
 
 .search-form__button {
   border: none;
-  background-image: url("../../images/search-form__button.svg");
+  background-image: url("../../../images/search-form__button.svg");
   background-position: center;
   background-size: 100% 100%;
   background-color: #202020;
@@ -49,6 +49,20 @@
   padding: 0;
   margin: 3px 0;
   cursor: pointer;
+}
+
+.search-form__error {
+  display: none;
+}
+
+.search-form__error-active {
+  display: flex;
+  color: #EE3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 10px 0;
 }
 
 .search-form__button:hover {

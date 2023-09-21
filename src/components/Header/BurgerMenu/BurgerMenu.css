@@ -37,7 +37,7 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border: none;
-  background-image: url("../../images/burger-menu__button-close.svg");
+  background-image: url("../../../images/burger-menu__button-close.svg");
   background-color: #202020;
   width: 22px;
   height: 22px;
@@ -56,11 +56,18 @@
   align-items: center;
   text-align: center;
   gap: 28px;
+
 }
 
 .link {
   color: #FFFFFF;
   text-decoration: none;
+  color: #FFFFFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
   cursor: pointer;
 }
 
@@ -68,6 +75,12 @@
   color: #FFFFFF;
   text-decoration: none;
   border-bottom: #FFFFFF 2px solid;
+  color: #FFFFFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .link:hover {
@@ -75,6 +88,7 @@
 }
 
 .link-title {
+  color: #FFFFFF;
   font-feature-settings: 'clig' off, 'liga' off;
   font-size: 18px;
   font-style: normal;
@@ -90,7 +104,7 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border: none;
-  background-image: url("../../images/navigation__profile.svg");
+  background-image: url("../../../images/navigation__burger-menu.svg");
   width: 100px;
   height: 32px;
   background-color: #313131;
