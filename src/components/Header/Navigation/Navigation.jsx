@@ -1,5 +1,7 @@
 import { useState } from 'react';
+
 import { Link, useLocation } from 'react-router-dom';
+
 import BurgerMenu from '../BurgerMenu/BurgerMenu.jsx';
 
 function Navigation({ loggedIn }) {
@@ -7,7 +9,7 @@ function Navigation({ loggedIn }) {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
 
   function handleBurgerMenuClick() {
-    setBurgerMenuOpen(true)
+    setBurgerMenuOpen(true);
   }
 
   function closeBurgerMenuClick() {
@@ -16,19 +18,19 @@ function Navigation({ loggedIn }) {
 
   return (
     <nav className="navigation">
-      <BurgerMenu
-        isOpen={isBurgerMenuOpen}
-        onClose={closeBurgerMenuClick}
-      />
-      <button
-        className="navigation__button-burger"
-        type="button"
-        id="burger-menu_open"
-        aria-label="open menu"
-        onClick={handleBurgerMenuClick}>
-      </button>
       {loggedIn ? (
         <>
+          <BurgerMenu
+            isOpen={isBurgerMenuOpen}
+            onClose={closeBurgerMenuClick}
+          />
+          <button
+            className="navigation__button-burger"
+            type="button"
+            id="burger-menu_open"
+            aria-label="open menu"
+            onClick={handleBurgerMenuClick}>
+          </button>
           <div className="navigation__links_container">
             <Link
               to='/movies'

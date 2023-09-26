@@ -12,26 +12,26 @@ class MainApi{
   }
 
 
-  registration(name, email, password) {
+  registration(name, email, password, _id) {
     const urlId = `${this._url}/signup`;
 
     return fetch(urlId, {
       method: 'POST',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify({name, email, password})
+      body: JSON.stringify({ name, email, password, _id }),
     })
       .then(this._checkTheAnswer);
   }
 
-  login(email, password) {
+  login(email, password, _id) {
     const urlId = `${this._url}/signin`;
 
     return fetch(urlId, {
       method: 'POST',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify({email, password})
+      body: JSON.stringify({ email, password, _id }),
     })
       .then(this._checkTheAnswer);
   }
@@ -54,6 +54,7 @@ class MainApi{
       credentials: 'include',
       headers: this._headers,
     })
+      .then(this._checkTheAnswer);
   }
 
   updateProfile(name, email) {
@@ -63,7 +64,7 @@ class MainApi{
       method: 'PATCH',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify({name, email})
+      body: JSON.stringify({ name, email }),
     })
       .then(this._checkTheAnswer);
   }
@@ -76,17 +77,31 @@ class MainApi{
       credentials: 'include',
       headers: this._headers,
     })
+      .then(this._checkTheAnswer);
   }
 
-  savedMovies(movie) {
+  savedMovies(movie, user) {
     const urlId = `${this._url}/movies`;
 
     return fetch(urlId, {
-      method: 'GET',
+      method: 'POST',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify(movie),
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co` + movie.image.url,
+        trailerLink: movie.trailerLink,
+        thumbnail: `https://api.nomoreparties.co` + movie.image.formats.thumbnail.url,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+      }),
     })
+      .then(this._checkTheAnswer);
   }
 
   deleteMovie(id) {
@@ -97,6 +112,7 @@ class MainApi{
       credentials: 'include',
       headers: this._headers,
     })
+      .then(this._checkTheAnswer);
   }
 }
 

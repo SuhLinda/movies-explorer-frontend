@@ -31,7 +31,6 @@
   box-shadow: 0 0 25px rgba(0, 0, 0, .15);
   border-radius: 10px;
   width: 430px;
-  height: 330px;
   margin: 0;
 }
 
@@ -68,7 +67,6 @@
 
 .tooltip-text {
   width: 358px;
-  height: 58px;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;

@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+
 import useClosePopup from '../../../hooks/useClosePopup.jsx';
 
 function BurgerMenu({ isOpen, onClose }) {

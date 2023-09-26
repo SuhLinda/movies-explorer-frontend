@@ -1,6 +1,6 @@
-import {useState, useEffect, useMemo} from 'react'
-import {Routes, Route, useNavigate} from 'react-router-dom';
-import {CurrentUserContext} from '../../contexts/CurrentUserContext.jsx';
+import { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.jsx';
 
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
@@ -15,12 +15,19 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [image, setImage] = useState('');
   const [text, setText] = useState('');
 
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (navigator.cookieEnabled === true) {
+      setIsLoggedIn(true);
+    }
+    console.log(isLoggedIn)
+  }, [isLoggedIn]);
 
   function openInfoTooltip() {
     setInfoTooltipOpen(true);
@@ -29,9 +36,6 @@ function App() {
   function closeInfoTooltip() {
     setInfoTooltipOpen(false);
   }
-
-
-
 
   return (
     <CurrentUserContext.Provider value={currentUser || ''}>
@@ -42,6 +46,7 @@ function App() {
             element={
               <Register
                 setCurrentUser={setCurrentUser}
+                isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setImage={setImage}
                 setText={setText}
@@ -55,6 +60,7 @@ function App() {
             element={
               <Login
                 setCurrentUser={setCurrentUser}
+                isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setImage={setImage}
                 setText={setText}
@@ -72,21 +78,42 @@ function App() {
           <Route
             path="/movies"
             element={
-              <Movies
-                isLoggedIn={isLoggedIn}/>
-            }
-          />
+            <ProtectedRoute
+              element={Movies}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              setImage={setImage}
+              setText={setText}
+              navigate={navigate}
+              openInfoTooltip={openInfoTooltip}
+              closeInfoTooltip={closeInfoTooltip}
+            />
+          }>
+          </Route>
           <Route
             path='/saved-movies'
             element={
-              <SavedMovies isLoggedIn={isLoggedIn
-              }/>
-            }
-          />
+              <ProtectedRoute
+                element={SavedMovies}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                setImage={setImage}
+                setText={setText}
+                navigate={navigate}
+                openInfoTooltip={openInfoTooltip}
+                closeInfoTooltip={closeInfoTooltip}
+              />
+          }>
+          </Route>
           <Route
             path='/profile'
             element={
-              <Profile
+              <ProtectedRoute
+                element={Profile}
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setCurrentUser={setCurrentUser}
@@ -94,9 +121,8 @@ function App() {
                 setImage={setImage}
                 setText={setText}
               />
-            }
-          />
-
+          }>
+          </Route>
           <Route
             path='*'
             element={

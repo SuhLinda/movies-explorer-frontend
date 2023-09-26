@@ -2,26 +2,28 @@ import { Link } from 'react-router-dom';
 
 import useFormValidation from '../../hooks/useFormValidation.jsx';
 
+import { mainApi } from '../../utils/MainApi.jsx';
+
 import headerLogo from '../../images/header__logo.svg';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
-
-import { mainApi } from '../../utils/MainApi.jsx';
+import {useEffect} from "react";
 
 function Login(
   {
     setCurrentUser,
+    isLoggedIn,
     setIsLoggedIn,
     setImage,
     setText,
     navigate,
-    openInfoTooltip
+    openInfoTooltip,
   }) {
   const {
     values,
     errors,
     isValid,
-    handleChangeForm
+    handleChangeForm,
   } = useFormValidation();
 
   async function onLogin({ email, password }) {

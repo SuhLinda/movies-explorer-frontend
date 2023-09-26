@@ -18,10 +18,10 @@ class MoviesApi{
         'Content-Type': 'application/json',
       }
     })
-      .then((response) => {
-        this._checkTheAnswer(response);
-      })
+      .then(this._checkTheAnswer);
   }
 }
 
-export const moviesApi = new MoviesApi('https://api.nomoreparties.co/beatfilm-movies')
+
+
+export const moviesApi = new MoviesApi('https://api.nomoreparties.co/beatfilm-movies');

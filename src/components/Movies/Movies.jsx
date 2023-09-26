@@ -1,164 +1,83 @@
-import {useState, useEffect} from 'react';
+import { useState, useContext } from 'react';
 
-import { filterSearchShortMovies, filterSearchMovies } from '../../utils/functions.jsx';
-import useScreenWidth from '../../hooks/useScreenWidth.jsx';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.jsx';
+
+import { moviesApi } from '../../utils/MoviesApi.jsx';
+import { handleMoviesFilter, handleShortMoviesFilter } from '../../utils/functions.jsx';
 
 import Header from '../Header/Header.jsx';
 import SearchForm from './SearchForm/SearchForm.jsx';
-import MoreMovieCards from './MoreMovieCards/MoreMovieCards.jsx';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer.jsx';
+import Preloader from './Preloader/Preloader.jsx';
 
-import { moviesApi } from '../../utils/MoviesApi.jsx';
-import { mainApi } from '../../utils/MainApi.jsx';
+import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
-function Movies({ isLoggedIn }) {
+function Movies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip, onSave }) {
+  const currentUser = useContext(CurrentUserContext);
+
   const [movies, setMovies] = useState([]);
-  const [search, setSearch] = useState('');
-  const [resultSearch, setResultSearch] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSearchErr, setIsSearchErr] =useState('');
-  const [shortFilm, setShortFilm] = useState(false);
-  const [savedMovies, setSavedMovies] =useState([]);
+  const [search, setSearch] = useState(JSON.parse(localStorage.getItem('search')) || []);
+  const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
+  const [isSearchErr, setIsSearchErr] = useState(false);
 
-  const [isNumberOfVisibleMovies, setNumberOfVisibleMovies, resetTheNumberOfVisibleMovies] = useScreenWidth();
-
-
-  useEffect(() => {
-    const savedSearchResult = localStorage.getItem('resultSearch');
-    const savedSearch = localStorage.getItem('search');
-    const savedShortFilm = localStorage.getItem('shortFilm');
-    const savedMovies = localStorage.getItem('savedMovies');
-
-    if (savedSearchResult && savedSearch) {
-      setResultSearch(JSON.parse(savedSearchResult));
-      setSearch(savedSearch);
-      setShortFilm(savedShortFilm ? savedShortFilm === 'true' : false);
+  async function handleMoviesSearch() {
+    if (search.length === 0) {
+      setIsSearchErr(true);
+      setMovies([]);
     } else {
-      setShortFilm(false);
-      setResultSearch([]);
-    }
+      try {
+        setIsLoading(true);
+        setSearch(search);
 
-    if (savedMovies) {
-      setSavedMovies(JSON.parse(savedMovies));
-    }
-  }, []);
+        const movies = await moviesApi.getMovies();
 
+        if (shortMovies === false) {
+          const shortMoviesList = handleShortMoviesFilter(movies);
 
-  function  findSavedMoviesById(movie, savedMovies) {
-    return savedMovies.find((saveMovie) =>
-      saveMovie.movieId === movie.id
-    );
-  }
+          const moviesListSearch = handleMoviesFilter(shortMoviesList, search);
 
-  const newSearchResult = resultSearch.map((movie) =>
-    ({ ...movie, saved: findSavedMoviesById(movie)})
-  )
+          handleLengthSearch(moviesListSearch);
+          setMovies(moviesListSearch);
 
-  function handleSearchErr(err) {
-    setIsSearchErr(err);
-    setResultSearch([]);
-  }
+        } else {
+          const moviesListSearch = handleMoviesFilter(movies, search);
 
-  function handleSearchSuccess(filterMovies) {
-    setResultSearch(filterMovies);
-    setIsSearchErr('');
-    localStorage.setItem('resultSearch', JSON.stringify(filterMovies));
-    localStorage.setItem('search', search);
-  }
+          handleLengthSearch(moviesListSearch);
 
-  function handleMoviesSearch() {
-    resetTheNumberOfVisibleMovies(isNumberOfVisibleMovies);
-    const movies  = localStorage.getItem('movies');
+          setMovies(moviesListSearch);
+        }
+        localStorage.setItem('movies', JSON.stringify(movies));
+        localStorage.setItem('search', JSON.stringify(search));
+        localStorage.setItem('shortMovies', JSON.stringify(shortMovies));
 
-    if (movies) {
-      setMovies(JSON.parse(movies));
-      const filterMovies = filterSearchMovies(JSON.parse(movies), search);
-
-      if (filterMovies.length === 0) {
-        handleSearchErr('none');
-        return;
+      } catch (err) {
+        setImage(imageInfoTooltipUnSuccess);
+        setText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        openInfoTooltip();
+        console.log(err);
+      } finally {
+        setIsLoading(false);
       }
-
-      if (shortFilm) {
-        const filterShortFilms = filterSearchShortMovies(filterMovies, true);
-        handleSearchSuccess(filterShortFilms, true);
-      } else {
-        handleSearchSuccess(filterMovies, false);
-      }
-    } else {
-      setIsLoading(true);
-
-      mainApi.getSavedMovies()
-        .then((savedMovies) => {
-          setSavedMovies(savedMovies)
-
-          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-        })
-        .catch((err) => {
-          console.log(err);
-
-        })
-
-      moviesApi.getMovies()
-        .then((movies) => {
-          setMovies(movies);
-          const filterMovies = filterSearchMovies(movies, search);
-
-          if (filterMovies.length === 0) {
-            handleSearchErr('no');
-            return;
-          }
-
-          if (shortFilm) {
-            const filterShortFilm = filterSearchShortMovies(filterMovies, true);
-            handleSearchSuccess(filterShortFilm, true);
-          } else {
-            handleSearchSuccess(filterMovies, false);
-          }
-
-          localStorage.setItem('movies', JSON.stringify(movies));
-          localStorage.setItem('search', search);
-        })
-        .catch((err) => {
-          setMovies([]);
-          setResultSearch([]);
-          handleSearchErr('111');
-          console.log(err);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        })
     }
   }
 
-
-  function handleCheckboxChange() {
-    setShortFilm(!shortFilm);
-    localStorage.setItem('shortFilm', !shortFilm ? 'true' : 'false');
-
-    const movies = localStorage.getItem('movies');
-
-    if (!movies) {
-      return;
-    }
-
-    const savedShortFilms = localStorage.getItem('shortFilm');
-
-    if (savedShortFilms === 'true') {
-      const filterShortFilms = filterSearchShortMovies(resultSearch, true);
-      localStorage.setItem('resultSearch', JSON.stringify(filterShortFilms));
-      setResultSearch(filterShortFilms);
-    } else {
-      const movies = localStorage.getItem('movies');
-      const filterMovies = filterSearchMovies(JSON.parse(movies), search);
-
-      localStorage.setItem('resultSearch', JSON.stringify(filterMovies));
-      setResultSearch(filterMovies);
+  function handleLengthSearch(searchQuery) {
+    if (searchQuery.length === 0) {
+      setImage(imageInfoTooltipUnSuccess);
+      setText('Ничего не найдено...');
+      openInfoTooltip();
     }
   }
 
-
+  async function handleShortMoviesSearch() {
+    if (shortMovies === false) {
+      setShortMovies(true);
+    }
+    if (shortMovies === true) {
+      setShortMovies(false);
+    }
+  }
 
   return (
     <section className="movies">
@@ -168,19 +87,22 @@ function Movies({ isLoggedIn }) {
         onSearch={handleMoviesSearch}
         search={search}
         setSearch={setSearch}
-        setIsSearchErr={setIsSearchErr}
-        shortFilm={shortFilm}
-        onchangeCheckBox={handleCheckboxChange}
-      />
-      <MoviesCardList
-        isLoading={isLoading}
-        movies={newSearchResult.slice(0, isNumberOfVisibleMovies)}
         isSearchErr={isSearchErr}
-        savedMovies={savedMovies}
-        setSavedMovies={setSavedMovies}
+        setIsSearchErr={setIsSearchErr}
+        onFilter={handleShortMoviesSearch}
+        shortMovies={shortMovies}
       />
-
-      <Footer />
+      {isLoading &&
+        <Preloader/>
+      }
+      {!isLoading &&
+        <MoviesCardList
+          movies={movies}
+          isSavedMoviesPage={false}
+          onSave={onSave}
+        />
+      }
+      <Footer/>
     </section>
   )
 }

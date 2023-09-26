@@ -1,6 +1,6 @@
 import useClosePopup from '../../hooks/useClosePopup.jsx';
 
-function InfoTooltip({isOpen, onClose, image, text}) {
+function InfoTooltip({ isOpen, onClose, image, text }) {
   useClosePopup(isOpen, onClose);
 
   return (

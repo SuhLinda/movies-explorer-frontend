@@ -2,32 +2,29 @@ function convertMinutesToHours(min) {
   let hours = Math.trunc(min / 60);
   let minutes = min % 60;
 
-  return hours + 'ч' + minutes + 'м';
-}
-
-function filterSearchShortMovies(movies) {
-  return movies.filter(movie =>
-    movie.duration < 40
-  );
-}
-
-function filterSearchMovies(movies, search, checkbox) {
-  const moviesBySearch = movies.filter((movie) => {
-    const movieRU = String(movie.nameRU).toLowerCase().trim();
-    const movieEN = String(movie.nameEN).toLowerCase().trim();
-    const userMovies = search.toLowerCase().trim();
-    return movieRU.indexOf(userMovies) !== -1 || movieEN.indexOf(userMovies) !== -1;
-  })
-
-  if (checkbox) {
-    return filterSearchShortMovies(moviesBySearch);
-  } else {
-    return moviesBySearch;
+  if (hours === 0) {
+    return minutes + 'м';
+  } else if (minutes === 0) {
+    return hours + 'ч ' + '00м';
   }
+  return hours + 'ч ' + minutes + 'м';
+}
+
+function handleMoviesFilter(movies, search) {
+  return movies.filter((movie) => {
+    return movie.nameRU.toLowerCase().trim().includes(search.toLowerCase().trim()) ||
+      movie.nameEN.toLowerCase().trim().includes(search.toLowerCase().trim());
+  })
+}
+
+function handleShortMoviesFilter(movies) {
+  return movies.filter((movie) =>
+    movie.duration > 40
+  );
 }
 
 export {
   convertMinutesToHours,
-  filterSearchShortMovies,
-  filterSearchMovies,
-}
+  handleMoviesFilter,
+  handleShortMoviesFilter,
+};

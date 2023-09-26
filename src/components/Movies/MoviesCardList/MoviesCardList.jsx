@@ -1,42 +1,57 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import MoviesCard from '../MoviesCard/MoviesCard.jsx';
-import Preloader from '../Preloader/Preloader.jsx';
-import {useEffect, useState} from "react";
-import useScreenWidth from "../../../hooks/useScreenWidth";
+import MoreMovieCards from '../MoreMovieCards/MoreMovieCards.jsx';
 
-function MoviesCardList({isLoading, movies, isSearchErr, savedMovies, setSavedMovies}) {
-  const [showMovieCardList, setShowMovieCardList] = useState(movies);
-
-  const width = useScreenWidth();
-  const searchedMovies = movies ? movies.length : 0;
+function MoviesCardList({ isLoading, movies, savedMovies, setSavedMovies, isSavedMoviesPage, onSave }) {
+  const screenWidth = window.innerWidth;
+  const showMoreButton = movies ? movies.length : 0;
+  const [listMovies, setListMovies] = useState(movies);
+  const location = useLocation().pathname;
 
   useEffect(() => {
-    if (width > 900) {
-      setShowMovieCardList(movies.slice(0, 12));
-    } else if (width > 450 && width <= 900) {
-      setShowMovieCardList(movies.slice(0, 8));
-    } else if (width <= 450) {
-      setShowMovieCardList(movies.slice(0, 5));
-    } else {
-      setShowMovieCardList(movies);
-    }
-  }, [width, movies]);
+   if (location === '/movies') {
+     if (screenWidth >= 1210) {
+       setListMovies(movies.slice(0, 12));
+     }
+
+     if (screenWidth >= 731 && screenWidth <= 1200) {
+       setListMovies(movies.slice(0, 8));
+     }
+
+     if (screenWidth <= 730) {
+       setListMovies(movies.slice(0, 5));
+     }
+   } else {
+     setListMovies(movies);
+   }
+  }, [screenWidth, movies]);
+
+
 
   return (
     <section className="movies-card-list">
-      {isLoading ? (
-        <Preloader/>
-      ) : (
-        <ul className="movies-card-list__items">
-          {showMovieCardList.sort().map((movie) => {
-            return <MoviesCard
-              key={movie.id || movie._id}
-              movie={movie}
-              savedMovies={savedMovies}
-              setSavedMovies={setSavedMovies}
-            />
-          })}
-        </ul>
-      )}
+      <ul className="movies-card-list__items">
+        {listMovies.sort().map((movie) => {
+          return <MoviesCard
+            key={isSavedMoviesPage ? movie.movieId : movie.id}
+            movie={movie}
+            savedMovies={savedMovies}
+            setSavedMovies={setSavedMovies}
+            isSavedMoviesPage={isSavedMoviesPage}
+          />
+        })}
+      </ul>
+      {!isSavedMoviesPage && showMoreButton ?
+        <MoreMovieCards
+          screenWidth={screenWidth}
+          movies={movies}
+          listMovies={listMovies}
+          setListMovies={setListMovies}
+          onSave={onSave}
+        /> : ''
+      }
     </section>
   )
 }

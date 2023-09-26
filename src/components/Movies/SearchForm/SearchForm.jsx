@@ -1,24 +1,16 @@
-import {useState} from 'react';
-
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox.jsx';
 
-import useFormValidation from '../../../hooks/useFormValidation.jsx';
-
-function SearchForm({onSearch, search, setSearch, setIsSearchErr, shortFilm, onchangeCheckBox}) {
-
-  const [isErr, setIsErr] = useState(false);
+function SearchForm({ onSearch, search, setSearch, isSearchErr, setIsSearchErr, onFilter, shortMovies }) {
 
   function handleSearchChange(evt) {
     setSearch(evt.target.value);
-    setIsErr(false);
   }
 
   function handleSearchSubmit(evt) {
     evt.preventDefault();
 
     if(!search) {
-      setIsErr(true);
-      setIsSearchErr('');
+      setIsSearchErr(true);
       return;
     }
     onSearch();
@@ -26,7 +18,9 @@ function SearchForm({onSearch, search, setSearch, setIsSearchErr, shortFilm, onc
 
 return (
   <>
-    <form className="search-form" onSubmit={handleSearchSubmit}>
+    <form
+      className="search-form"
+      onSubmit={handleSearchSubmit}>
       <fieldset className="search-form__fieldset">
         <input
           className="search-form__input"
@@ -43,13 +37,13 @@ return (
           aria-label="search">
         </button>
         <span
-          className={`search-form__error ${isErr ? 'search-form__error-active' : ''}`}>
+          className={`search-form__error ${isSearchErr ? 'search-form__error-active' : ''}`}>
           Нужно ввести ключевое слово!
         </span>
       </fieldset>
       <FilterCheckbox
-        checked={shortFilm}
-        onChange={onchangeCheckBox}
+        onFilter={onFilter}
+        shortMovies={shortMovies}
       />
     </form>
   </>

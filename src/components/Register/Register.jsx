@@ -1,33 +1,35 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 
 import useFormValidation from '../../hooks/useFormValidation.jsx';
+
+import { mainApi } from '../../utils/MainApi.jsx';
 
 import headerLogo from '../../images/header__logo.svg';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
-import { mainApi } from '../../utils/MainApi.jsx';
-
 function Register(
   {
     setCurrentUser,
+    isLoggedIn,
     setIsLoggedIn,
     setImage,
     setText,
     navigate,
-    openInfoTooltip
+    openInfoTooltip,
   }) {
   const {
     values,
     errors,
     isValid,
-    handleChangeForm
+    handleChangeForm,
   } = useFormValidation();
 
-  async function onRegister({ name, email, password }) {
+  async function onRegister({ name, email, password, _id }) {
     try {
-      const userRegistration = await mainApi.registration(name, email, password);
+      const userRegistration = await mainApi.registration(name, email, password, _id);
       if (userRegistration) {
         setCurrentUser(userRegistration);
         setIsLoggedIn(true);
@@ -52,6 +54,7 @@ function Register(
       name: values.name,
       email: values.email,
       password: values.password,
+      _id: values._id,
     })
   }
 
