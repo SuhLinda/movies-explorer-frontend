@@ -22,9 +22,18 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
 
   useEffect(() => {
+
     mainApi.getSavedMovies()
       .then((savedMovies) => {
-        setSavedMovies(savedMovies.reverse());
+        if (shortMovies === false) {
+          const shortSavedMoviesList = handleShortMoviesFilter(savedMovies);
+          setSavedMovies(shortSavedMoviesList.reverse());
+        } else {
+          setSavedMovies(savedMovies.reverse());
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       })
   }, [isLoggedIn, setSavedMovies]);
 
@@ -107,6 +116,7 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
         savedMovies={savedMovies}
         setSavedMovies={setSavedMovies}
         isSavedMoviesPage={true}
+        isLoggedIn={isLoggedIn}
       />
       }
       <Footer/>
