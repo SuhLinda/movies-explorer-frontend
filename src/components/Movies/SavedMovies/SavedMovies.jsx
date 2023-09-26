@@ -22,7 +22,6 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
 
   useEffect(() => {
-
     mainApi.getSavedMovies()
       .then((savedMovies) => {
         if (shortMovies === false) {
@@ -35,7 +34,7 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
       .catch((err) => {
         console.log(err);
       })
-  }, [isLoggedIn, setSavedMovies]);
+  }, [isLoggedIn, shortMovies]);
 
   async function handleMoviesSearch() {
     if (search.length === 0) {
@@ -62,7 +61,6 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
           setSavedMovies(savedMoviesListSearch);
         }
 
-        //localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
         localStorage.setItem('search', JSON.stringify(search));
         localStorage.setItem('shortMovies', JSON.stringify(shortMovies));
       } catch (err) {

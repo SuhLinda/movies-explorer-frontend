@@ -10,7 +10,7 @@ function MoviesCard({movie, savedMovies, setSavedMovies, isSavedMoviesPage}) {
 
   useEffect(() => {
     localStorage.getItem('savedMovies');
-  }, [savedMovies])
+  }, [savedMovies, isSavedMovies])
 
   async function handleSavedMovie() {
     try {
@@ -44,82 +44,71 @@ function MoviesCard({movie, savedMovies, setSavedMovies, isSavedMoviesPage}) {
 
       <div className="movies-card">
 
-          {isSavedMoviesPage ?
-            (
-              <>
-                {isSavedMovies ?
-                  <button
-                    className="movies-card__button-checkmark"
-                    type="button"
-                    aria-label="saved">
-                  </button>
-                  :
-                  <button
-                    className="movies-card__button-close"
-                    type="button"
-                    aria-label="close"
-                    onClick={handleDeleteMovie}>
-                  </button>
-                }
-
-                <img
-                  className="movies-card__img"
-                  src={movie.image}
-                  alt={movie.nameRU || movie.nameEN}
-                />
-                <Link
-                  to={movie.trailerLink}
-                  className="movies-card__link">
+        {isSavedMoviesPage ?
+          (
+            <>
+              <button
+                className={isSavedMovies ? 'movies-card__button-checkmark' : 'movies-card__button-checkmark_active'}
+                type="button"
+                aria-label="saved">
+              </button>
+              <button
+                className={'movies-card__button-close'}
+                type="button"
+                aria-label="close"
+                onClick={handleDeleteMovie}>
+              </button>
+              <img
+                className="movies-card__img"
+                src={movie.image}
+                alt={movie.nameRU || movie.nameEN}
+              />
+              <Link
+                to={movie.trailerLink}
+                className="movies-card__link">
                 <h2 className="movies-card__title">
                   {movie.nameRU || movie.nameEN}
                 </h2>
-                </ Link>
-                <p className="movies-card__text">{convertMinutesToHours(movie.duration)}
-                </p>
-
-              </>
-            ) : (
-              <>
-                {isSavedMovies ?
-                  <button
-                    className="movies-card__button-checkmark"
-                    type="button"
-                    aria-label="saved">
-                  </button>
-                  :
-                  <button
-                    className="movies-card__button-save"
-                    type="button"
-                    aria-label="save"
-                    onClick={handleSavedMovie}>
-                    Сохранить
-                  </button>
-                }
-
-                <img
-                  className="movies-card__img"
-                  src={`https://api.nomoreparties.co/${movie.image.url}`}
-                  alt={movie.nameRU || movie.nameEN}
-                />
-                <Link
-                  to={movie.trailerLink}
-                  className="movies-card__link"
-                >
-                  <h2 className="movies-card__title">
-                    {movie.nameRU || movie.nameEN}
-                  </h2>
-                </ Link>
-
-                <p className="movies-card__text">{convertMinutesToHours(movie.duration)}
-                </p>
-
-              </>
-            )
-          }
-
-
+              </ Link>
+              <p className="movies-card__text">{convertMinutesToHours(movie.duration)}
+              </p>
+            </>
+          ) : (
+            <>
+              {isSavedMovies ?
+                <button
+                  className="movies-card__button-checkmark_active"
+                  type="button"
+                  aria-label="saved">
+                </button>
+                :
+                <button
+                  className="movies-card__button-save"
+                  type="button"
+                  aria-label="save"
+                  onClick={handleSavedMovie}>
+                  Сохранить
+                </button>
+              }
+              <img
+                className="movies-card__img"
+                src={`https://api.nomoreparties.co/${movie.image.url}`}
+                alt={movie.nameRU || movie.nameEN}
+              />
+              <Link
+                to={movie.trailerLink}
+                className="movies-card__link"
+              >
+                <h2 className="movies-card__title">
+                  {movie.nameRU || movie.nameEN}
+                </h2>
+              </ Link>
+              <p className="movies-card__text">{convertMinutesToHours(movie.duration)}
+              </p>
+            </>
+          )
+        }
       </div>
-
     </li>
   )
 }
