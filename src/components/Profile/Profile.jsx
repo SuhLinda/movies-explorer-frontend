@@ -64,16 +64,13 @@ function Profile({ setCurrentUser,openInfoTooltip, setImage, setText, isLoggedIn
   }
 
   async function logOut() {
+    localStorage.clear();
+
     try {
       const userLogOut = await mainApi.logout();
       if (userLogOut) {
         setCurrentUser({});
         setIsLoggedIn(false);
-        localStorage.removeItem('movies');
-        localStorage.removeItem('search');
-        localStorage.removeItem('shortMovies');
-        localStorage.removeItem('filterMovie');
-        localStorage.removeItem('savedMovies');
       }
     } catch (res) {
       console.log(`ошибка: ${res}`);

@@ -25,9 +25,8 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
     mainApi.getSavedMovies()
       .then((savedMovies) => {
         setSavedMovies(savedMovies.reverse());
-        localStorage.getItem('savedMovies');
       })
-  }, [isLoggedIn]);
+  }, [isLoggedIn, setSavedMovies]);
 
   async function handleMoviesSearch() {
     if (search.length === 0) {

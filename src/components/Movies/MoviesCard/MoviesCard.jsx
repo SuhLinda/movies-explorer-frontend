@@ -1,23 +1,30 @@
 import {CurrentUserContext} from "../../../contexts/CurrentUserContext";
 import {convertMinutesToHours} from '../../../utils/functions.jsx';
 import {mainApi} from "../../../utils/MainApi";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 
 function MoviesCard({movie, savedMovies, setSavedMovies, isSavedMoviesPage}) {
   const currentUser = useContext(CurrentUserContext);
-  const [isSavedMovies, setIsSavedMovies] = useState(false)
+  const [isSavedMovies, setIsSavedMovies] = useState(false);
 
+  useEffect(() => {
+    localStorage.getItem('savedMovies');
+  }, [savedMovies])
 
   async function handleSavedMovie() {
 
-    try {
-     const newSavedMovies = await mainApi.savedMovies(movie);
-      setIsSavedMovies(true);
-      localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
-    } catch (err) {
-      setIsSavedMovies(false);
-      console.log(err);
-    }
+
+      try {
+        const newSavedMovie = await mainApi.savedMovies(movie);
+        setIsSavedMovies(true);
+        setSavedMovies(newSavedMovie)
+        localStorage.setItem('savedMovies', JSON.stringify(newSavedMovie));
+
+      } catch (err) {
+        setIsSavedMovies(false);
+        console.log(err);
+      }
+
   }
 
   async function handleDeleteMovie() {

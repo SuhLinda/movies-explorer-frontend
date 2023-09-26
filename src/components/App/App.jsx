@@ -14,20 +14,13 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [image, setImage] = useState('');
   const [text, setText] = useState('');
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (navigator.cookieEnabled === true) {
-      setIsLoggedIn(true);
-    }
-    console.log(isLoggedIn)
-  }, [isLoggedIn]);
 
   function openInfoTooltip() {
     setInfoTooltipOpen(true);
@@ -78,20 +71,20 @@ function App() {
           <Route
             path="/movies"
             element={
-            <ProtectedRoute
-              element={Movies}
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              setImage={setImage}
-              setText={setText}
-              navigate={navigate}
-              openInfoTooltip={openInfoTooltip}
-              closeInfoTooltip={closeInfoTooltip}
-            />
-          }>
-          </Route>
+              <ProtectedRoute
+                element={Movies}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                setImage={setImage}
+                setText={setText}
+                navigate={navigate}
+                openInfoTooltip={openInfoTooltip}
+                closeInfoTooltip={closeInfoTooltip}
+              />
+            }
+          />
           <Route
             path='/saved-movies'
             element={
@@ -107,8 +100,8 @@ function App() {
                 openInfoTooltip={openInfoTooltip}
                 closeInfoTooltip={closeInfoTooltip}
               />
-          }>
-          </Route>
+            }
+          />
           <Route
             path='/profile'
             element={
@@ -121,12 +114,12 @@ function App() {
                 setImage={setImage}
                 setText={setText}
               />
-          }>
-          </Route>
+            }
+          />
           <Route
             path='*'
             element={
-              <ErrorNotFound/>
+              <ErrorNotFound />
             }
           />
         </ Routes>
