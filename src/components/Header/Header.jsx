@@ -12,10 +12,12 @@ function Header({ isLoggedIn }) {
         <img
           className="header__logo"
           src={headerLogo}
-          alt="logo"/>
+          alt="logo"
+        />
       </ Link>
       <Navigation
-        isLoggedIn={isLoggedIn}/>
+        isLoggedIn={isLoggedIn}
+      />
     </header>
   )
 }

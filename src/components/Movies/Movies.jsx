@@ -14,8 +14,6 @@ import Preloader from './Preloader/Preloader.jsx';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
 function Movies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip }) {
-  const currentUser = useContext(CurrentUserContext);
-
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState(JSON.parse(localStorage.getItem('search')) || []);
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
@@ -82,7 +80,8 @@ function Movies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openIn
   return (
     <section className="movies">
       <Header
-        isLoggedIn={isLoggedIn}/>
+        isLoggedIn={isLoggedIn}
+      />
       <SearchForm
         onSearch={handleMoviesSearch}
         search={search}
@@ -93,7 +92,7 @@ function Movies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openIn
         shortMovies={shortMovies}
       />
       {isLoading &&
-        <Preloader/>
+        <Preloader />
       }
       {!isLoading &&
         <MoviesCardList
@@ -101,7 +100,7 @@ function Movies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openIn
           isSavedMoviesPage={false}
         />
       }
-      <Footer/>
+      <Footer />
     </section>
   )
 }

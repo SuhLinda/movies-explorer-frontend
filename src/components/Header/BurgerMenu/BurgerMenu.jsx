@@ -8,7 +8,7 @@ function BurgerMenu({ isOpen, onClose }) {
   useClosePopup(isOpen, onClose);
 
   return (
-    <section className={`burger-menu ${isOpen ? 'burger-menu_opened' : ""}`}>
+    <section className={`burger-menu ${isOpen ? 'burger-menu_opened' : ''}`}>
       <div className="burger-menu__container">
         <button
           className="burger-menu__button-close"

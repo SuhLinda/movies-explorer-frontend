@@ -8,8 +8,8 @@ function FilterCheckbox({ shortMovies, onFilter }) {
         aria-label="checkbox"
         type="checkbox"
         checked={shortMovies}
-        onChange={onFilter}>
-      </input>
+        onChange={onFilter}
+      />
       <label className="filter-checkbox__text">
         Короткометражки
       </label>

@@ -1,9 +1,9 @@
-import { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {useContext, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 
-import { CurrentUserContext } from '../../contexts/CurrentUserContext.jsx';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext.jsx';
 
-import { mainApi } from '../../utils/MainApi.jsx';
+import {mainApi} from '../../utils/MainApi.jsx';
 
 import Header from '../Header/Header.jsx';
 import useFormValidation from '../../hooks/useFormValidation.jsx';
@@ -11,7 +11,7 @@ import useFormValidation from '../../hooks/useFormValidation.jsx';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
-function Profile({ setCurrentUser,openInfoTooltip, setImage, setText, isLoggedIn, setIsLoggedIn }) {
+function Profile({setCurrentUser, openInfoTooltip, setImage, setText, isLoggedIn, setIsLoggedIn}) {
   const currentUser = useContext(CurrentUserContext);
 
   const {
@@ -19,7 +19,6 @@ function Profile({ setCurrentUser,openInfoTooltip, setImage, setText, isLoggedIn
     errors,
     isValid,
     handleChangeForm,
-    resetFormValues,
   } = useFormValidation();
 
   const checkingValues = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
@@ -27,17 +26,20 @@ function Profile({ setCurrentUser,openInfoTooltip, setImage, setText, isLoggedIn
   useEffect(() => {
     mainApi.getUserMe()
       .then((user) => {
-        if(user) {
+        if (user) {
           setCurrentUser(user);
           setIsLoggedIn(true);
         }
       })
       .catch((err) => {
+        setCurrentUser({});
+        setIsLoggedIn(false);
         console.log(err);
       })
+
   }, [isLoggedIn]);
 
-  async function onProfile({ name, email }) {
+  async function onProfile({name, email}) {
     try {
       const newUser = await mainApi.updateProfile(name, email);
       if (newUser) {
@@ -65,7 +67,6 @@ function Profile({ setCurrentUser,openInfoTooltip, setImage, setText, isLoggedIn
 
   async function logOut() {
     localStorage.clear();
-
     try {
       const userLogOut = await mainApi.logout();
       if (userLogOut) {
@@ -80,15 +81,15 @@ function Profile({ setCurrentUser,openInfoTooltip, setImage, setText, isLoggedIn
   return (
     <>
       <Header
-        isLoggedIn={isLoggedIn}/>
+        isLoggedIn={isLoggedIn}
+      />
       <section className="profile">
         <h2 className="profile__title">
           Привет, {currentUser.name || 'имя'}!
         </h2>
         <form
           className="profile__form"
-          onSubmit={handleSubmitProfile}
-        >
+          onSubmit={handleSubmitProfile}>
           <fieldset className="profile__fieldset">
             <div className="profile__container">
               <label className="profile__signature">
@@ -144,7 +145,7 @@ function Profile({ setCurrentUser,openInfoTooltip, setImage, setText, isLoggedIn
             className="profile__link-exit"
             onClick={logOut}>
             Выйти из аккаунта
-          </Link>
+          </ Link>
         </form>
       </section>
     </>

@@ -7,12 +7,10 @@ import { mainApi } from '../../utils/MainApi.jsx';
 import headerLogo from '../../images/header__logo.svg';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
-import {useEffect} from "react";
 
 function Login(
   {
     setCurrentUser,
-    isLoggedIn,
     setIsLoggedIn,
     setImage,
     setText,
@@ -35,6 +33,7 @@ function Login(
         setImage(imageInfoTooltipSuccess);
         setText('Вы успешно зарегистрировались!');
         navigate('/movies', {replace: true});
+        localStorage.setItem('jwt', JSON.stringify('jwt'));
       }
     } catch (res) {
       setIsLoggedIn(false);
@@ -61,7 +60,8 @@ function Login(
         <img
           className="register__logo"
           src={headerLogo}
-          alt="logo"/>
+          alt="logo"
+        />
       </ Link>
       <h2 className="register__title">
         Рады видеть!

@@ -14,7 +14,7 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('jwt')) || false);
   const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [image, setImage] = useState('');
@@ -23,11 +23,8 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentUser) {
-      setIsLoggedIn(true);
-      console.log(isLoggedIn)
-    }
-  }, [currentUser])
+    JSON.parse(localStorage.getItem('jwt'));
+  }, [isLoggedIn]);
 
   function openInfoTooltip() {
     setInfoTooltipOpen(true);
@@ -46,7 +43,6 @@ function App() {
             element={
               <Register
                 setCurrentUser={setCurrentUser}
-                isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setImage={setImage}
                 setText={setText}
@@ -60,7 +56,6 @@ function App() {
             element={
               <Login
                 setCurrentUser={setCurrentUser}
-                isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setImage={setImage}
                 setText={setText}
@@ -72,7 +67,9 @@ function App() {
           <Route
             path='/'
             element={
-              <Main/>
+              <Main
+                isLoggedIn={isLoggedIn}
+              />
             }
           />
           <Route

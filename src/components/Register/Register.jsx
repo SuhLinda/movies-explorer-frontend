@@ -13,7 +13,6 @@ import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.
 function Register(
   {
     setCurrentUser,
-    isLoggedIn,
     setIsLoggedIn,
     setImage,
     setText,
@@ -64,7 +63,8 @@ function Register(
         <img
           className="register__logo"
           src={headerLogo}
-          alt="logo"/>
+          alt="logo"
+        />
       </ Link>
       <h2 className="register__title">
         Добро пожаловать!
@@ -132,7 +132,9 @@ function Register(
       </form>
       <p className="register__text">
         Уже зарегистрированы?
-        <Link to='/signin' className="register__link">
+        <Link
+          to='/signin'
+          className="register__link">
           <span className="register__signature">
             Войти
           </span>

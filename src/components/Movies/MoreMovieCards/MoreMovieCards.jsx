@@ -1,6 +1,4 @@
-import {useEffect} from "react";
-
-function MoreMovieCards({screenWidth, movies, listMovies, setListMovies}) {
+function MoreMovieCards({ screenWidth, movies, listMovies, setListMovies }) {
   function handleMoreButtonClick() {
     if (screenWidth >= 1210) {
       setListMovies(movies.slice(0, listMovies.length + 3));

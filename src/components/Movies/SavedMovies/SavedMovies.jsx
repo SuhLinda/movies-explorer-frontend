@@ -5,7 +5,7 @@ import { mainApi } from "../../../utils/MainApi";
 
 import { handleMoviesFilter, handleShortMoviesFilter } from '../../../utils/functions.jsx';
 
-import Header from '../../Header/Header.jsx'
+import Header from '../../Header/Header.jsx';
 import SearchForm from '../SearchForm/SearchForm.jsx';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import Footer from '../../Footer/Footer.jsx';
@@ -14,8 +14,6 @@ import Preloader from '../Preloader/Preloader.jsx';
 import imageInfoTooltipUnSuccess from '../../../images/info-tooltip_unsuccessfully.svg';
 
 function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip }) {
-  const currentUser = useContext(CurrentUserContext);
-
   const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
   const [search, setSearch] = useState([]);
   const [isSearchErr, setIsSearchErr] = useState(false);
@@ -108,7 +106,7 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
         shortMovies={shortMovies}
       />
       {isLoading &&
-        <Preloader/>
+        <Preloader />
       }
       {!isLoading &&
       <MoviesCardList
@@ -119,7 +117,7 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
         isLoggedIn={isLoggedIn}
       />
       }
-      <Footer/>
+      <Footer />
     </section>
   )
 }

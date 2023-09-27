@@ -4,9 +4,9 @@ import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard.jsx';
 import MoreMovieCards from '../MoreMovieCards/MoreMovieCards.jsx';
 
-function MoviesCardList({ isLoading, movies, savedMovies, setSavedMovies, isSavedMoviesPage }) {
+function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage }) {
   const screenWidth = window.innerWidth;
-  const showMoreButton = movies ? movies.length : 0 ;
+  const showMoreButton = movies ? movies.length : 0;
 
   const [listMovies, setListMovies] = useState(movies);
   const location = useLocation().pathname;
