@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.jsx';
 
-import {mainApi} from '../../utils/MainApi.jsx';
+import { mainApi } from '../../utils/MainApi.jsx';
 
 import Header from '../Header/Header.jsx';
 import useFormValidation from '../../hooks/useFormValidation.jsx';

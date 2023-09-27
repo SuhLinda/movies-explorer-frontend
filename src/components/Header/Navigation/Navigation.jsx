@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import BurgerMenu from '../BurgerMenu/BurgerMenu.jsx';
 
-function Navigation({ loggedIn }) {
+function Navigation({ isLoggedIn }) {
   const location = useLocation().pathname;
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
 
@@ -18,7 +18,7 @@ function Navigation({ loggedIn }) {
 
   return (
     <nav className="navigation">
-      {loggedIn ? (
+      {isLoggedIn ? (
         <>
           <BurgerMenu
             isOpen={isBurgerMenuOpen}

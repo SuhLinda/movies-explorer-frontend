@@ -16,12 +16,13 @@ import imageInfoTooltipUnSuccess from '../../../images/info-tooltip_unsuccessful
 function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const [savedMovies, setSavedMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
   const [search, setSearch] = useState([]);
   const [isSearchErr, setIsSearchErr] = useState(false);
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
 
   useEffect(() => {
+    localStorage.getItem('savedMovies');
     mainApi.getSavedMovies()
       .then((savedMovies) => {
         if (shortMovies === false) {
@@ -61,6 +62,7 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
           setSavedMovies(savedMoviesListSearch);
         }
 
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
         localStorage.setItem('search', JSON.stringify(search));
         localStorage.setItem('shortMovies', JSON.stringify(shortMovies));
       } catch (err) {

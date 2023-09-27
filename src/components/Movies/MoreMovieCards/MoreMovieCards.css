@@ -1,7 +1,10 @@
-.more-movie-card {
+.more-movie-card_active {
   display: flex;
   justify-content: center;
   margin: 0 auto;
+}
+.more-movie-card {
+  display: none;
 }
 
 .more-movie-card__button {

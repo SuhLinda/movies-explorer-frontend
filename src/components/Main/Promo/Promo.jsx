@@ -1,6 +1,6 @@
 import Header from '../../Header/Header.jsx';
 
-function Promo({isLoggedIn}) {
+function Promo({ isLoggedIn }) {
   return (
     <>
       <Header

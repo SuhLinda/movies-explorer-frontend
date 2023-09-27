@@ -8,17 +8,15 @@ function MoviesCard({movie, savedMovies, setSavedMovies, isSavedMoviesPage}) {
   const currentUser = useContext(CurrentUserContext);
   const [isSavedMovies, setIsSavedMovies] = useState(false);
 
-  useEffect(() => {
-    localStorage.getItem('savedMovies');
-  }, [savedMovies, isSavedMovies])
-
   async function handleSavedMovie() {
     try {
       const newSavedMovie = await mainApi.savedMovies(movie);
-      if (newSavedMovie.movieId !== movie.movieId) {
-        setIsSavedMovies(true);
-        localStorage.setItem('savedMovies', JSON.stringify(newSavedMovie));
-        console.log('test')
+      if (newSavedMovie.movieId === movie.movieId) {
+        setIsSavedMovies(false);
+
+        //localStorage.setItem('savedMovies', JSON.stringify(newSavedMovie));
+      } else {
+        setIsSavedMovies(true)
       }
     } catch (err) {
       setIsSavedMovies(false);
@@ -41,9 +39,7 @@ function MoviesCard({movie, savedMovies, setSavedMovies, isSavedMoviesPage}) {
 
   return (
     <li>
-
       <div className="movies-card">
-
         {isSavedMoviesPage ?
           (
             <>
@@ -58,20 +54,21 @@ function MoviesCard({movie, savedMovies, setSavedMovies, isSavedMoviesPage}) {
                 aria-label="close"
                 onClick={handleDeleteMovie}>
               </button>
+              <Link
+                to={movie.trailerLink}
+                className="movies-card__link">
               <img
                 className="movies-card__img"
                 src={movie.image}
                 alt={movie.nameRU || movie.nameEN}
               />
-              <Link
-                to={movie.trailerLink}
-                className="movies-card__link">
                 <h2 className="movies-card__title">
                   {movie.nameRU || movie.nameEN}
                 </h2>
-              </ Link>
+
               <p className="movies-card__text">{convertMinutesToHours(movie.duration)}
               </p>
+              </ Link>
             </>
           ) : (
             <>
@@ -90,21 +87,21 @@ function MoviesCard({movie, savedMovies, setSavedMovies, isSavedMoviesPage}) {
                   Сохранить
                 </button>
               }
+              <Link
+                to={movie.trailerLink}
+                className="movies-card__link">
               <img
                 className="movies-card__img"
                 src={`https://api.nomoreparties.co/${movie.image.url}`}
                 alt={movie.nameRU || movie.nameEN}
               />
-              <Link
-                to={movie.trailerLink}
-                className="movies-card__link"
-              >
                 <h2 className="movies-card__title">
                   {movie.nameRU || movie.nameEN}
                 </h2>
-              </ Link>
+
               <p className="movies-card__text">{convertMinutesToHours(movie.duration)}
               </p>
+              </ Link>
             </>
           )
         }

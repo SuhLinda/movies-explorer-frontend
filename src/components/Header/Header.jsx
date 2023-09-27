@@ -4,7 +4,7 @@ import Navigation from './Navigation/Navigation.jsx';
 
 import headerLogo from '../../images/header__logo.svg';
 
-function Header() {
+function Header({ isLoggedIn }) {
 
   return (
     <header className="header">
@@ -14,7 +14,8 @@ function Header() {
           src={headerLogo}
           alt="logo"/>
       </ Link>
-      <Navigation />
+      <Navigation
+        isLoggedIn={isLoggedIn}/>
     </header>
   )
 }

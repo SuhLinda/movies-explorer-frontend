@@ -13,7 +13,7 @@ import Preloader from './Preloader/Preloader.jsx';
 
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
-function Movies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip, onSave }) {
+function Movies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [movies, setMovies] = useState([]);
@@ -99,7 +99,6 @@ function Movies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openIn
         <MoviesCardList
           movies={movies}
           isSavedMoviesPage={false}
-          onSave={onSave}
         />
       }
       <Footer/>
