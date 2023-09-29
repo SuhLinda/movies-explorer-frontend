@@ -118,6 +118,23 @@
   opacity: .8;
 }
 
+.burger-menu__button-edit {
+  display: flex;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border: none;
+  background-image: url("../../../images/navigation__profile.svg");
+  width: 100px;
+  height: 32px;
+  background-color: #313131;
+  border-radius: 20px;
+  margin: 621px auto 90px;
+  padding: 0;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 769px) {
   .burger-menu {
     display: none;

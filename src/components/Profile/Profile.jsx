@@ -1,9 +1,9 @@
-import {useContext, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import {CurrentUserContext} from '../../contexts/CurrentUserContext.jsx';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.jsx';
 
-import {mainApi} from '../../utils/MainApi.jsx';
+import { mainApi } from '../../utils/MainApi.jsx';
 
 import Header from '../Header/Header.jsx';
 import useFormValidation from '../../hooks/useFormValidation.jsx';
@@ -39,7 +39,7 @@ function Profile({setCurrentUser, openInfoTooltip, setImage, setText, isLoggedIn
 
   }, [isLoggedIn]);
 
-  async function onProfile({name, email}) {
+  async function onProfile({ name, email }) {
     try {
       const newUser = await mainApi.updateProfile(name, email);
       if (newUser) {

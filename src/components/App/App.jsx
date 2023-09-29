@@ -19,12 +19,16 @@ function App() {
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [image, setImage] = useState('');
   const [text, setText] = useState('');
+  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    JSON.parse(localStorage.getItem('jwt'));
+    if (JSON.parse(localStorage.getItem('jwt'))) {
+      setIsLoggedIn(true);
+    }
   }, [isLoggedIn]);
+
 
   function openInfoTooltip() {
     setInfoTooltipOpen(true);
@@ -86,6 +90,8 @@ function App() {
                 navigate={navigate}
                 openInfoTooltip={openInfoTooltip}
                 closeInfoTooltip={closeInfoTooltip}
+                savedMovies={savedMovies}
+                setSavedMovies={setSavedMovies}
               />
             }
           />
@@ -103,6 +109,8 @@ function App() {
                 navigate={navigate}
                 openInfoTooltip={openInfoTooltip}
                 closeInfoTooltip={closeInfoTooltip}
+                savedMovies={savedMovies}
+                setSavedMovies={setSavedMovies}
               />
             }
           />

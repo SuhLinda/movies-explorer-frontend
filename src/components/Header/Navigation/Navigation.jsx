@@ -28,7 +28,7 @@ function Navigation({ isLoggedIn }) {
             className="navigation__button-burger"
             type="button"
             id="burger-menu_open"
-            aria-label="open menu"
+            aria-label="openMenu"
             onClick={handleBurgerMenuClick}>
           </button>
           <div className="navigation__links_container">

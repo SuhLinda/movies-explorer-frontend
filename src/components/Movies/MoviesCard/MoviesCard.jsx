@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -8,17 +8,45 @@ import { mainApi } from '../../../utils/MainApi.jsx';
 
 import { convertMinutesToHours } from '../../../utils/functions.jsx';
 
-function MoviesCard({ movie, isSavedMoviesPage }) {
+function MoviesCard({ movie, isSavedMoviesPage, savedMovies, setSavedMovies }) {
+  const currentUser = useContext(CurrentUserContext);
   const [isSavedMovies, setIsSavedMovies] = useState(false);
 
+  useEffect(() => {
+    //JSON.parse(localStorage.getItem('savedMovies'))
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies')).find(item => item.movieId ===
+      JSON.parse(localStorage.getItem('savedMovies')).find(item => item.movieId))
+    if (savedMovies) {
+      setIsSavedMovies(true)
+      console.log('tet')
+    }
+
+    const savedMovie = JSON.parse(localStorage.getItem('savedMovies'))
+
+
+  }, [savedMovies]);
+
+
   async function handleSavedMovie() {
+
+
     try {
       const newSavedMovie = await mainApi.savedMovies(movie);
-      if (newSavedMovie.movieId === movie.movieId) {
-        setIsSavedMovies(false);
-      } else {
+
         setIsSavedMovies(true);
-      }
+
+        let savedMovies = JSON.parse(localStorage.getItem('savedMovies')).find(item => item.movieId !== newSavedMovie.movieId);
+
+        if (savedMovies) {
+          setIsSavedMovies(true);
+          console.log(savedMovies.movieId, newSavedMovie.movieId);
+          savedMovies = JSON.parse(localStorage.getItem('savedMovies'))
+          savedMovies.unshift(newSavedMovie);
+          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+        }
+
+
+
     } catch (err) {
       setIsSavedMovies(false);
       console.log(err);
@@ -26,12 +54,11 @@ function MoviesCard({ movie, isSavedMoviesPage }) {
   }
 
   async function handleDeleteMovie() {
-    console.log(movie._id);
     try {
-      const deletedMovie = await mainApi.deleteMovie(movie._id);
+      const movieDelete = await mainApi.deleteMovie(movie._id);
+      setIsSavedMovies(false);
 
     } catch (err) {
-      setIsSavedMovies(false);
       console.log(err);
     }
   }
@@ -42,11 +69,6 @@ function MoviesCard({ movie, isSavedMoviesPage }) {
         {isSavedMoviesPage ?
           (
             <>
-              <button
-                className={isSavedMovies ? 'movies-card__button-checkmark' : 'movies-card__button-checkmark_active'}
-                type="button"
-                aria-label="saved">
-              </button>
               <button
                 className="movies-card__button-close"
                 type="button"

@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
-import { CurrentUserContext } from '../../../contexts/CurrentUserContext.jsx';
+import { useEffect, useState } from 'react';
 
 import { mainApi } from "../../../utils/MainApi";
 
@@ -13,14 +12,17 @@ import Preloader from '../Preloader/Preloader.jsx';
 
 import imageInfoTooltipUnSuccess from '../../../images/info-tooltip_unsuccessfully.svg';
 
-function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip }) {
-  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
+function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip, savedMovies, setSavedMovies, isSavedMovies, setIsSavedMovies }) {
+  //const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
   const [search, setSearch] = useState([]);
   const [isSearchErr, setIsSearchErr] = useState(false);
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
 
+
+
+
   useEffect(() => {
-    localStorage.getItem('savedMovies');
+
     mainApi.getSavedMovies()
       .then((savedMovies) => {
         if (shortMovies === false) {
@@ -35,6 +37,8 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
       })
   }, [isLoggedIn, shortMovies]);
 
+
+
   async function handleMoviesSearch() {
     if (search.length === 0) {
       setIsSearchErr(true);
@@ -42,17 +46,13 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
     } else {
       try {
         setIsLoading(true);
+        setIsSearchErr(false);
         setSearch(search);
 
-        const savedMovies = await mainApi.getSavedMovies();
+        //const savedMovies = await mainApi.getSavedMovies();
 
         if (shortMovies === false) {
-          const shortSavedMoviesList = handleShortMoviesFilter(savedMovies);
 
-          const savedMoviesListSearch = handleMoviesFilter(shortSavedMoviesList, search);
-
-          handleLengthSearch(savedMoviesListSearch);
-          setSavedMovies(savedMoviesListSearch);
         } else {
           const savedMoviesListSearch = handleMoviesFilter(savedMovies, search);
 
@@ -114,7 +114,8 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
         savedMovies={savedMovies}
         setSavedMovies={setSavedMovies}
         isSavedMoviesPage={true}
-        isLoggedIn={isLoggedIn}
+        isSavedMovies={isSavedMovies}
+        setIsSavedMovies={setIsSavedMovies}
       />
       }
       <Footer />

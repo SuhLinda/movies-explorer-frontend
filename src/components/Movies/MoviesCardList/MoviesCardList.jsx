@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import useScreenWidth from '../../../hooks/useScreenWidth.jsx';
+
 import MoviesCard from '../MoviesCard/MoviesCard.jsx';
 import MoreMovieCards from '../MoreMovieCards/MoreMovieCards.jsx';
 
-function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage }) {
-  const screenWidth = window.innerWidth;
+function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage, isSavedMovies, setIsSavedMovies }) {
+  const screenWidth = useScreenWidth();
   const showMoreButton = movies ? movies.length : 0;
 
   const [listMovies, setListMovies] = useState(movies);
@@ -34,13 +36,15 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__items">
-        {listMovies.sort().map((movie) => {
+        {listMovies.map((movie) => {
           return <MoviesCard
             key={isSavedMoviesPage ? movie.movieId : movie.id}
             movie={movie}
             savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}
             isSavedMoviesPage={isSavedMoviesPage}
+            isSavedMovies={isSavedMovies}
+            setIsSavedMovies={setIsSavedMovies}
           />
         })}
       </ul>

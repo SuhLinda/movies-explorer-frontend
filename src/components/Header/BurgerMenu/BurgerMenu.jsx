@@ -42,7 +42,7 @@ function BurgerMenu({ isOpen, onClose }) {
         </div>
         <Link
           to='/profile'
-          className="burger-menu__button" />
+          className="burger-menu__button-edit" />
       </div>
     </section>
   )
