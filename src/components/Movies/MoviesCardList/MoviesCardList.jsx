@@ -40,11 +40,15 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
     <section className="movies-card-list">
       <ul className="movies-card-list__items">
         {listMovies.map((movie, index) => {
+          movie.isSaved = false;
           JSON.parse(localStorage.getItem('savedMovies')).map((savedMovies) => {
-            savedMovies.movieId === movie.id ? movie.isSaved = true : movie.isSaved = false
+            if (savedMovies.movieId === movie.id) {
+              movie.isSaved = true;
+            }
+
             if (listMovies.length - 1 === index) {
 
-              console.log(listMovies.length - 1, index)
+              //console.log(listMovies.length - 1, index)
             }
           })
             return <MoviesCard

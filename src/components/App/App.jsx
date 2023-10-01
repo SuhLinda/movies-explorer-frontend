@@ -48,6 +48,7 @@ function App() {
             element={
               <Register
                 setCurrentUser={setCurrentUser}
+                isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setImage={setImage}
                 setText={setText}

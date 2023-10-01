@@ -13,6 +13,7 @@ import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.
 function Register(
   {
     setCurrentUser,
+    isLoggedIn,
     setIsLoggedIn,
     setImage,
     setText,
@@ -35,6 +36,8 @@ function Register(
         setImage(imageInfoTooltipSuccess);
         setText('Вы успешно зарегистрировались!');
         navigate('/movies', {replace: true});
+        localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = true));
+
       }
     } catch (res) {
       setIsLoggedIn(false);

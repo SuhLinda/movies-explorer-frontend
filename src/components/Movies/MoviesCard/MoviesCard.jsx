@@ -8,15 +8,11 @@ import { mainApi } from '../../../utils/MainApi.jsx';
 
 import { convertMinutesToHours } from '../../../utils/functions.jsx';
 
-function MoviesCard({ movie, isSavedMoviesPage, savedMovies, setSavedMovies }) {
+function MoviesCard({ movie, isSavedMoviesPage }) {
   const currentUser = useContext(CurrentUserContext);
   const [isSavedMovies, setIsSavedMovies] = useState(false);
 
-
-
   async function handleSavedMovie() {
-
-
     try {
       const newSavedMovie = await mainApi.savedMovies(movie);
         setIsSavedMovies(true);
@@ -31,24 +27,14 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, setSavedMovies }) {
 
   async function handleDeleteMovie() {
     try {
-
-      JSON.parse(localStorage.getItem('savedMovies')).map((savedMovies) => {
-        if (savedMovies.movieId === movie.movieId) {
-          const movieDelete = mainApi.deleteMovie(movie._id);
-
-        }
-
-      }
-    )
-
+      await mainApi.deleteMovie(movie._id);
       setIsSavedMovies(false);
-
+      const savedMovies = await mainApi.getSavedMovies();
+      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
     } catch (err) {
       console.log(err);
     }
   }
-
-
 
   return (
     <li>

@@ -31,7 +31,6 @@ function Login(
       if (userLogin) {
         setCurrentUser(userLogin);
         setIsLoggedIn(true);
-        console.log(isLoggedIn)
         setImage(imageInfoTooltipSuccess);
         setText('Вы успешно зарегистрировались!');
         navigate('/movies', {replace: true});
