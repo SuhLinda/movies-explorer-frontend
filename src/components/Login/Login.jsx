@@ -11,6 +11,7 @@ import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.
 function Login(
   {
     setCurrentUser,
+    isLoggedIn,
     setIsLoggedIn,
     setImage,
     setText,
@@ -30,10 +31,11 @@ function Login(
       if (userLogin) {
         setCurrentUser(userLogin);
         setIsLoggedIn(true);
+        console.log(isLoggedIn)
         setImage(imageInfoTooltipSuccess);
         setText('Вы успешно зарегистрировались!');
         navigate('/movies', {replace: true});
-        localStorage.setItem('jwt', JSON.stringify('jwt'));
+        localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = true));
       }
     } catch (res) {
       setIsLoggedIn(false);

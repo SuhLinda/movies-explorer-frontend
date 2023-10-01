@@ -6,15 +6,20 @@ import useScreenWidth from '../../../hooks/useScreenWidth.jsx';
 import MoviesCard from '../MoviesCard/MoviesCard.jsx';
 import MoreMovieCards from '../MoreMovieCards/MoreMovieCards.jsx';
 
-function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage, isSavedMovies, setIsSavedMovies }) {
+function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage }) {
   const screenWidth = useScreenWidth();
   const showMoreButton = movies ? movies.length : 0;
 
   const [listMovies, setListMovies] = useState(movies);
+  const [listMoviesLength, setListMoviesLength] = useState(false)
+
   const location = useLocation().pathname;
 
   useEffect(() => {
    if (location === '/movies') {
+     if (listMovies.length) {
+
+     }
      if (screenWidth >= 1210) {
        setListMovies(movies.slice(0, 12));
      }
@@ -31,24 +36,27 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
    }
   }, [screenWidth, movies]);
 
-
-
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__items">
-        {listMovies.map((movie) => {
-          return <MoviesCard
-            key={isSavedMoviesPage ? movie.movieId : movie.id}
-            movie={movie}
-            savedMovies={savedMovies}
-            setSavedMovies={setSavedMovies}
-            isSavedMoviesPage={isSavedMoviesPage}
-            isSavedMovies={isSavedMovies}
-            setIsSavedMovies={setIsSavedMovies}
-          />
+        {listMovies.map((movie, index) => {
+          JSON.parse(localStorage.getItem('savedMovies')).map((savedMovies) => {
+            savedMovies.movieId === movie.id ? movie.isSaved = true : movie.isSaved = false
+            if (listMovies.length - 1 === index) {
+
+              console.log(listMovies.length - 1, index)
+            }
+          })
+            return <MoviesCard
+              key={isSavedMoviesPage ? movie.movieId : movie.id}
+              movie={movie}
+              savedMovies={savedMovies}
+              setSavedMovies={setSavedMovies}
+              isSavedMoviesPage={isSavedMoviesPage}
+            />
         })}
       </ul>
-      {!isSavedMoviesPage && showMoreButton ?
+      {!isSavedMoviesPage && showMoreButton && listMovies.length - 1 ?
         <MoreMovieCards
           screenWidth={screenWidth}
           movies={movies}

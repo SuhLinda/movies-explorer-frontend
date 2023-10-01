@@ -12,19 +12,6 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, setSavedMovies }) {
   const currentUser = useContext(CurrentUserContext);
   const [isSavedMovies, setIsSavedMovies] = useState(false);
 
-  useEffect(() => {
-    //JSON.parse(localStorage.getItem('savedMovies'))
-    const savedMovies = JSON.parse(localStorage.getItem('savedMovies')).find(item => item.movieId ===
-      JSON.parse(localStorage.getItem('savedMovies')).find(item => item.movieId))
-    if (savedMovies) {
-      setIsSavedMovies(true)
-      console.log('tet')
-    }
-
-    const savedMovie = JSON.parse(localStorage.getItem('savedMovies'))
-
-
-  }, [savedMovies]);
 
 
   async function handleSavedMovie() {
@@ -32,21 +19,10 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, setSavedMovies }) {
 
     try {
       const newSavedMovie = await mainApi.savedMovies(movie);
-
         setIsSavedMovies(true);
-
-        let savedMovies = JSON.parse(localStorage.getItem('savedMovies')).find(item => item.movieId !== newSavedMovie.movieId);
-
-        if (savedMovies) {
-          setIsSavedMovies(true);
-          console.log(savedMovies.movieId, newSavedMovie.movieId);
-          savedMovies = JSON.parse(localStorage.getItem('savedMovies'))
-          savedMovies.unshift(newSavedMovie);
-          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-        }
-
-
-
+        const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+        savedMovies.unshift(newSavedMovie);
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
     } catch (err) {
       setIsSavedMovies(false);
       console.log(err);
@@ -55,13 +31,24 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, setSavedMovies }) {
 
   async function handleDeleteMovie() {
     try {
-      const movieDelete = await mainApi.deleteMovie(movie._id);
+
+      JSON.parse(localStorage.getItem('savedMovies')).map((savedMovies) => {
+        if (savedMovies.movieId === movie.movieId) {
+          const movieDelete = mainApi.deleteMovie(movie._id);
+
+        }
+
+      }
+    )
+
       setIsSavedMovies(false);
 
     } catch (err) {
       console.log(err);
     }
   }
+
+
 
   return (
     <li>
@@ -92,7 +79,7 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, setSavedMovies }) {
             </>
           ) : (
             <>
-              {isSavedMovies ?
+              {movie.isSaved || isSavedMovies ?
                 <button
                   className="movies-card__button-checkmark_active"
                   type="button"

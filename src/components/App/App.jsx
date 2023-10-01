@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext.jsx';
+import {useState, useEffect} from 'react';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext.jsx';
 
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
@@ -14,7 +14,7 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('jwt')) || false);
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('isLoggedIn')) || false);
   const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [image, setImage] = useState('');
@@ -24,11 +24,12 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('jwt'))) {
-      setIsLoggedIn(true);
-    }
+    JSON.parse(localStorage.getItem('isLoggedIn'));
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    JSON.parse(localStorage.getItem('savedMovies'));
+  }, [savedMovies]);
 
   function openInfoTooltip() {
     setInfoTooltipOpen(true);
@@ -60,6 +61,7 @@ function App() {
             element={
               <Login
                 setCurrentUser={setCurrentUser}
+                isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setImage={setImage}
                 setText={setText}
@@ -131,7 +133,7 @@ function App() {
           <Route
             path='*'
             element={
-              <ErrorNotFound />
+              <ErrorNotFound/>
             }
           />
         </ Routes>

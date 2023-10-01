@@ -18,9 +18,6 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
   const [isSearchErr, setIsSearchErr] = useState(false);
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
 
-
-
-
   useEffect(() => {
 
     mainApi.getSavedMovies()
