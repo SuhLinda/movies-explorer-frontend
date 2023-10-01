@@ -9,7 +9,7 @@ import MoreMovieCards from '../MoreMovieCards/MoreMovieCards.jsx';
 function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage }) {
   const screenWidth = useScreenWidth();
   const showMoreButton = movies ? movies.length : 0;
-
+  const totalMovies = movies ? movies.length : 0;
   const [listMovies, setListMovies] = useState(movies);
   const [listMoviesLength, setListMoviesLength] = useState(false)
 
@@ -18,7 +18,6 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
   useEffect(() => {
    if (location === '/movies') {
      if (listMovies.length) {
-
      }
      if (screenWidth >= 1210) {
        setListMovies(movies.slice(0, 12));
@@ -45,11 +44,11 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
             if (savedMovies.movieId === movie.id) {
               movie.isSaved = true;
             }
-
-            if (listMovies.length - 1 === index) {
-
+            if (totalMovies - 1 === index) {
+              document.querySelector('.more-movie-card_active').classList.add('more-movie-card');
               //console.log(listMovies.length - 1, index)
             }
+
           })
             return <MoviesCard
               key={isSavedMoviesPage ? movie.movieId : movie.id}
