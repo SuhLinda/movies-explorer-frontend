@@ -35,6 +35,10 @@ function Login(
         setText('Вы успешно зарегистрировались!');
         navigate('/movies', {replace: true});
         localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = true));
+      } else {
+        setCurrentUser({});
+        setIsLoggedIn(false);
+        localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = false));
       }
     } catch (res) {
       setIsLoggedIn(false);

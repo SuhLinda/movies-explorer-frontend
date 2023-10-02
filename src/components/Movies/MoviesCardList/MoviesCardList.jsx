@@ -8,10 +8,8 @@ import MoreMovieCards from '../MoreMovieCards/MoreMovieCards.jsx';
 
 function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage }) {
   const screenWidth = useScreenWidth();
-  const showMoreButton = movies ? movies.length : 0;
   const totalMovies = movies ? movies.length : 0;
   const [listMovies, setListMovies] = useState(movies);
-  const [listMoviesLength, setListMoviesLength] = useState(false)
 
   const location = useLocation().pathname;
 
@@ -35,6 +33,8 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
    }
   }, [screenWidth, movies]);
 
+
+
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__items">
@@ -44,11 +44,6 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
             if (savedMovies.movieId === movie.id) {
               movie.isSaved = true;
             }
-            if (totalMovies - 1 === index) {
-              document.querySelector('.more-movie-card_active').classList.add('more-movie-card');
-              //console.log(listMovies.length - 1, index)
-            }
-
           })
             return <MoviesCard
               key={isSavedMoviesPage ? movie.movieId : movie.id}
@@ -59,13 +54,14 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
             />
         })}
       </ul>
-      {!isSavedMoviesPage && showMoreButton && listMovies.length - 1 ?
+      {!isSavedMoviesPage && totalMovies && listMovies.length !== totalMovies ?
         <MoreMovieCards
           screenWidth={screenWidth}
           movies={movies}
           listMovies={listMovies}
           setListMovies={setListMovies}
         /> : ''
+
       }
     </section>
   )

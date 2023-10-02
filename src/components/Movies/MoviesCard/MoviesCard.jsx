@@ -8,7 +8,7 @@ import { mainApi } from '../../../utils/MainApi.jsx';
 
 import { convertMinutesToHours } from '../../../utils/functions.jsx';
 
-function MoviesCard({ movie, isSavedMoviesPage }) {
+function MoviesCard({ movie, isSavedMoviesPage, savedMovies }) {
   const currentUser = useContext(CurrentUserContext);
   const [isSavedMovies, setIsSavedMovies] = useState(false);
 
