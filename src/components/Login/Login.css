@@ -1,0 +1,33 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 396px;
+  margin: 0 auto;
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+
+.login__button {
+  margin: 179px auto 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .login {
+    padding-top: 227px;
+    padding-bottom: 227px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .login {
+    max-width: 260px;
+    padding-top: 56px;
+    padding-bottom: 30px;
+    align-items: center;
+  }
+
+  .login__button {
+    margin: 267px auto 14px;
+  }
+}

@@ -1,0 +1,182 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 396px;
+  margin: 0 auto;
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+
+.register__logo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 38px;
+  padding-bottom: 40px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.register__logo:hover {
+  opacity: .8;
+}
+
+.register__title {
+  font-size: 24px;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 500;
+  max-width: 396px;
+  margin: 0;
+}
+
+.register__form {
+  background-color: #202020;
+  align-items: center;
+  margin: 0;
+}
+
+.register__fieldset {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  margin: 40px auto 0;
+  padding: 0;
+}
+
+.register-form-signature {
+  color: #8B8B8B;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  max-width: 396px;
+  margin: 0 0 10px;
+}
+
+.register__input {
+  color: #FFFFFF;
+  border: none;
+  background-color: #2F2F2F;
+  border-radius: 8px;
+  height: 46px;
+  outline: none;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 15px;
+  margin: 0 0 20px;
+}
+
+.register__input:focus {
+  border: #3DDC84 1px solid;
+}
+
+.register__input:last-of-type {
+  margin: 0 0 10px;
+}
+
+.register__password {
+  color: #EE3465;
+}
+
+.register__error-active {
+  display: flex;
+  color: #EE3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+.register__button {
+  color: #FFFFFF;
+  border: none;
+  background-color: #4285F4;
+  border-radius: 3px;
+  width: 396px;
+  min-height: 45px;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 69px auto 16px;
+  cursor: pointer;
+}
+
+.register__button:hover {
+  opacity: .8;
+}
+
+.register__text {
+  color: #8B8B8B;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+.register__link {
+  text-align: center;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: normal;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.register__link:hover {
+  opacity: .7;
+}
+
+.register__signature {
+  color: #4285F4;
+  margin: 0 0 0 6px;
+}
+
+@media screen and (max-width: 768px) {
+  .register {
+    padding-top: 227px;
+    padding-bottom: 227px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .register {
+    max-width: 260px;
+    padding-top: 56px;
+    padding-bottom: 30px;
+    align-items: center;
+  }
+
+  .register__logo {
+    padding-bottom: 50px;
+  }
+
+  .register__form_fieldset {
+    margin: 80px auto 0;
+  }
+
+  .register__input {
+    width: 260px;
+  }
+
+  .register__button {
+    width: 260px;
+    font-size: 12px;
+    min-height: 45px;
+    margin: 157px auto 14px;
+  }
+
+  .register__text {
+    font-size: 12px;
+  }
+}

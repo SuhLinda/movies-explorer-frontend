@@ -1,0 +1,125 @@
+.burger-menu {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility .5s, opacity .5s linear;
+  position: fixed;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 3;
+  max-width: 100%;
+  min-height: 100%;
+  margin: 0 auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.burger-menu_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.burger-menu__container {
+  z-index: 5;
+  background-color: #202020;
+  color: #FFFFFF;
+  width: 520px;
+  margin: 0 0 0 auto;
+  opacity: 1;
+}
+
+.burger-menu__button-close {
+  color: #FFFFFF;
+  display: flex;
+  align-items: flex-end;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border: none;
+  background-image: url("../../images/burger-menu__button-close.svg");
+  background-color: #202020;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  margin: 22px 22px 105px auto;
+  cursor: pointer;
+}
+
+.burger-menu__button-close:hover {
+  opacity: .8;
+}
+
+.burger-menu__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+}
+
+.link {
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link-active {
+  color: #FFFFFF;
+  text-decoration: none;
+  border-bottom: #FFFFFF 2px solid;
+}
+
+.link:hover {
+  opacity: .7;
+}
+
+.link-title {
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+
+.burger-menu__button {
+  display: flex;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border: none;
+  background-image: url("../../images/navigation__profile.svg");
+  width: 100px;
+  height: 32px;
+  background-color: #313131;
+  border-radius: 20px;
+  margin: 621px auto 90px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.burger-menu__button:hover {
+  opacity: .8;
+}
+
+@media screen and (min-width: 769px) {
+  .burger-menu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .burger-menu__button-close {
+    margin: 13px 13px 100px auto;
+  }
+
+  .burger-menu__links {
+    gap: 24px;
+  }
+
+  .burger-menu__button {
+    margin: 444px auto auto;
+  }
+}
