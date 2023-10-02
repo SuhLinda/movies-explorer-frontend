@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { mainApi } from "../../../utils/MainApi";
+import { mainApi } from '../../../utils/MainApi.jsx';
 
 import { handleMoviesFilter, handleShortMoviesFilter } from '../../../utils/functions.jsx';
 
@@ -12,14 +12,24 @@ import Preloader from '../Preloader/Preloader.jsx';
 
 import imageInfoTooltipUnSuccess from '../../../images/info-tooltip_unsuccessfully.svg';
 
-function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip, savedMovies, setSavedMovies, isSavedMovies, setIsSavedMovies }) {
-  //const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
+function SavedMovies(
+  {
+    isLoggedIn,
+    isLoading,
+    setIsLoading,
+    setImage,
+    setText,
+    openInfoTooltip,
+    savedMovies,
+    setSavedMovies,
+    isSavedMovies,
+    setIsSavedMovies,
+  }) {
   const [search, setSearch] = useState([]);
   const [isSearchErr, setIsSearchErr] = useState(false);
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
 
   useEffect(() => {
-
     mainApi.getSavedMovies()
       .then((savedMovies) => {
         if (shortMovies === false) {
@@ -34,8 +44,6 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
       })
   }, [isLoggedIn, shortMovies]);
 
-
-
   async function handleMoviesSearch() {
     if (search.length === 0) {
       setIsSearchErr(true);
@@ -45,8 +53,6 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
         setIsLoading(true);
         setIsSearchErr(false);
         setSearch(search);
-
-        //const savedMovies = await mainApi.getSavedMovies();
 
         if (shortMovies === false) {
 
@@ -106,14 +112,14 @@ function SavedMovies({ isLoggedIn, isLoading, setIsLoading, setImage, setText, o
         <Preloader />
       }
       {!isLoading &&
-      <MoviesCardList
-        movies={savedMovies}
-        savedMovies={savedMovies}
-        setSavedMovies={setSavedMovies}
-        isSavedMoviesPage={true}
-        isSavedMovies={isSavedMovies}
-        setIsSavedMovies={setIsSavedMovies}
-      />
+        <MoviesCardList
+          movies={savedMovies}
+          savedMovies={savedMovies}
+          setSavedMovies={setSavedMovies}
+          isSavedMoviesPage={true}
+          isSavedMovies={isSavedMovies}
+          setIsSavedMovies={setIsSavedMovies}
+        />
       }
       <Footer />
     </section>

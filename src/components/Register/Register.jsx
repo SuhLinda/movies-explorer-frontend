@@ -37,7 +37,6 @@ function Register(
         setText('Вы успешно зарегистрировались!');
         navigate('/movies', {replace: true});
         localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = true));
-
       }
     } catch (res) {
       setIsLoggedIn(false);

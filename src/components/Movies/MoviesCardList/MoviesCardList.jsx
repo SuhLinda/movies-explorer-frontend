@@ -14,44 +14,40 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
   const location = useLocation().pathname;
 
   useEffect(() => {
-   if (location === '/movies') {
-     if (listMovies.length) {
-     }
-     if (screenWidth >= 1210) {
-       setListMovies(movies.slice(0, 12));
-     }
-
-     if (screenWidth >= 731 && screenWidth <= 1200) {
-       setListMovies(movies.slice(0, 8));
-     }
-
-     if (screenWidth <= 730) {
-       setListMovies(movies.slice(0, 5));
-     }
-   } else {
-     setListMovies(movies);
-   }
+    if (location === '/movies') {
+      if (listMovies.length) {
+      }
+      if (screenWidth >= 1210) {
+        setListMovies(movies.slice(0, 12));
+      }
+      if (screenWidth >= 731 && screenWidth <= 1200) {
+        setListMovies(movies.slice(0, 8));
+      }
+      if (screenWidth <= 730) {
+        setListMovies(movies.slice(0, 5));
+      }
+    } else {
+      setListMovies(movies);
+    }
   }, [screenWidth, movies]);
-
-
 
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__items">
-        {listMovies.map((movie, index) => {
+        {listMovies.map((movie) => {
           movie.isSaved = false;
           JSON.parse(localStorage.getItem('savedMovies')).map((savedMovies) => {
             if (savedMovies.movieId === movie.id) {
               movie.isSaved = true;
             }
           })
-            return <MoviesCard
-              key={isSavedMoviesPage ? movie.movieId : movie.id}
-              movie={movie}
-              savedMovies={savedMovies}
-              setSavedMovies={setSavedMovies}
-              isSavedMoviesPage={isSavedMoviesPage}
-            />
+          return <MoviesCard
+            key={isSavedMoviesPage ? movie.movieId : movie.id}
+            movie={movie}
+            savedMovies={savedMovies}
+            setSavedMovies={setSavedMovies}
+            isSavedMoviesPage={isSavedMoviesPage}
+          />
         })}
       </ul>
       {!isSavedMoviesPage && totalMovies && listMovies.length !== totalMovies ?
@@ -61,7 +57,6 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
           listMovies={listMovies}
           setListMovies={setListMovies}
         /> : ''
-
       }
     </section>
   )

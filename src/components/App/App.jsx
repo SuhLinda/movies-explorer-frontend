@@ -1,6 +1,6 @@
-import {useState, useEffect} from 'react';
-import {Routes, Route, useNavigate} from 'react-router-dom';
-import {CurrentUserContext} from '../../contexts/CurrentUserContext.jsx';
+import { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.jsx';
 
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
@@ -26,6 +26,7 @@ function App() {
   useEffect(() => {
     JSON.parse(localStorage.getItem('isLoggedIn'));
   }, [isLoggedIn]);
+
 
   useEffect(() => {
     JSON.parse(localStorage.getItem('savedMovies'));
@@ -85,16 +86,13 @@ function App() {
               <ProtectedRoute
                 element={Movies}
                 isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
                 setImage={setImage}
                 setText={setText}
-                navigate={navigate}
                 openInfoTooltip={openInfoTooltip}
                 closeInfoTooltip={closeInfoTooltip}
                 savedMovies={savedMovies}
-                setSavedMovies={setSavedMovies}
               />
             }
           />
@@ -134,7 +132,7 @@ function App() {
           <Route
             path='*'
             element={
-              <ErrorNotFound/>
+              <ErrorNotFound />
             }
           />
         </ Routes>

@@ -1,5 +1,5 @@
-class MainApi{
-  constructor({url, headers}) {
+class MainApi {
+  constructor({ url, headers }) {
     this._url = url;
     this._headers = headers;
   }

@@ -1,9 +1,7 @@
-import {useState, useContext, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
-import {CurrentUserContext} from '../../contexts/CurrentUserContext.jsx';
-
-import {moviesApi} from '../../utils/MoviesApi.jsx';
-import {handleMoviesFilter, handleShortMoviesFilter} from '../../utils/functions.jsx';
+import { moviesApi } from '../../utils/MoviesApi.jsx';
+import { handleMoviesFilter, handleShortMoviesFilter } from '../../utils/functions.jsx';
 
 import Header from '../Header/Header.jsx';
 import SearchForm from './SearchForm/SearchForm.jsx';
@@ -12,11 +10,20 @@ import Footer from '../Footer/Footer.jsx';
 import Preloader from './Preloader/Preloader.jsx';
 
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
-import {mainApi} from "../../utils/MainApi";
 
-function Movies({isLoggedIn, isLoading, setIsLoading, setImage, setText, openInfoTooltip, savedMovies, setSavedMovies, isSavedMovies, setIsSavedMovies}) {
+function Movies(
+  {
+    isLoggedIn,
+    isLoading,
+    setIsLoading,
+    setImage,
+    setText,
+    openInfoTooltip,
+    savedMovies,
+    isSavedMovies,
+    setIsSavedMovies
+  }) {
   const [movies, setMovies] = useState([]);
-
   const [search, setSearch] = useState(JSON.parse(localStorage.getItem('search')) || []);
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
   const [isSearchErr, setIsSearchErr] = useState(false);
@@ -120,8 +127,6 @@ function Movies({isLoggedIn, isLoading, setIsLoading, setImage, setText, openInf
         <MoviesCardList
           movies={movies}
           isSavedMoviesPage={false}
-          isSavedMovies={isSavedMovies}
-          setIsSavedMovies={setIsSavedMovies}
         />
       }
       <Footer/>

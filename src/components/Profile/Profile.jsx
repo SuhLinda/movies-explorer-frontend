@@ -11,14 +11,11 @@ import useFormValidation from '../../hooks/useFormValidation.jsx';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
-function Profile({setCurrentUser, openInfoTooltip, setImage, setText, isLoggedIn, setIsLoggedIn}) {
+function Profile({ setCurrentUser, openInfoTooltip, setImage, setText, isLoggedIn, setIsLoggedIn }) {
   const currentUser = useContext(CurrentUserContext);
 
   const {
-    values,
-    errors,
-    isValid,
-    handleChangeForm,
+    values, errors, isValid, handleChangeForm,
   } = useFormValidation();
 
   const checkingValues = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
@@ -78,8 +75,7 @@ function Profile({setCurrentUser, openInfoTooltip, setImage, setText, isLoggedIn
     }
   }
 
-  return (
-    <>
+  return (<>
       <Header
         isLoggedIn={isLoggedIn}
       />
