@@ -117,7 +117,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: 'api.lindasux.nomoredomainsicu.ru',
+  url: 'http://localhost:3000',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',

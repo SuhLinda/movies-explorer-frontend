@@ -5,6 +5,7 @@ function convertMinutesToHours(min) {
   if (hours === 0) {
     return minutes + 'м';
   } else if (minutes === 0) {
+    // eslint-disable-next-line
     return hours + 'ч ' + '00м';
   }
   return hours + 'ч ' + minutes + 'м';

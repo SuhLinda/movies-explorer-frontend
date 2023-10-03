@@ -30,15 +30,15 @@ function Movies(
   const [filterMovie, setFilterMovie] = useState(JSON.parse(localStorage.getItem('filterMovie')) || []);
 
   useEffect(() => {
-    localStorage.getItem('movies');
-
     if (shortMovies === false) {
       const shortMoviesList = handleShortMoviesFilter(movies);
       setMovies(shortMoviesList);
     } else {
-      setMovies(movies);
+      const moviesListSearch = handleMoviesFilter(movies, search);
+      setMovies(moviesListSearch);
     }
-  }, [isLoggedIn, shortMovies]);
+    // eslint-disable-next-line
+  }, [shortMovies, search]);
 
   async function handleMoviesSearch() {
     if (search.length === 0) {

@@ -23,7 +23,7 @@ function useScreenWidth() {
       window.addEventListener('resize', resizeController, false);
 
      return () => window.removeEventListener('resize', handleScreenResize);
-
+    // eslint-disable-next-line
   }, [getScreenWidth()]);
 
   return isScreenWidth;

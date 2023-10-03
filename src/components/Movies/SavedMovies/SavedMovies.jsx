@@ -42,7 +42,8 @@ function SavedMovies(
       .catch((err) => {
         console.log(err);
       })
-  }, [isLoggedIn, shortMovies]);
+    // eslint-disable-next-line
+  }, [shortMovies, search]);
 
   async function handleMoviesSearch() {
     if (search.length === 0) {

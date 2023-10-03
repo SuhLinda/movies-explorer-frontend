@@ -25,15 +25,13 @@ function Profile({ setCurrentUser, openInfoTooltip, setImage, setText, isLoggedI
       .then((user) => {
         if (user) {
           setCurrentUser(user);
-          setIsLoggedIn(true);
         }
       })
       .catch((err) => {
         setCurrentUser({});
-        setIsLoggedIn(false);
         console.log(err);
       })
-
+  // eslint-disable-next-line
   }, [isLoggedIn]);
 
   async function onProfile({ name, email }) {

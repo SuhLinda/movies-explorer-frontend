@@ -15,8 +15,6 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
 
   useEffect(() => {
     if (location === '/movies') {
-      if (listMovies.length) {
-      }
       if (screenWidth >= 1210) {
         setListMovies(movies.slice(0, 12));
       }
@@ -29,13 +27,14 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
     } else {
       setListMovies(movies);
     }
-  }, [screenWidth, movies]);
+  }, [movies, location, screenWidth]);
 
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__items">
         {listMovies.map((movie) => {
           movie.isSaved = false;
+          // eslint-disable-next-line
           JSON.parse(localStorage.getItem('savedMovies')).map((savedMovies) => {
             if (savedMovies.movieId === movie.id) {
               movie.isSaved = true;
