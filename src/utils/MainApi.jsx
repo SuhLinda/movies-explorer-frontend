@@ -12,26 +12,26 @@ class MainApi {
   }
 
 
-  registration(name, email, password, _id) {
+  registration(name, email, password) {
     const urlId = `${this._url}/signup`;
 
     return fetch(urlId, {
       method: 'POST',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify({ name, email, password, _id }),
+      body: JSON.stringify({ name, email, password }),
     })
       .then(this._checkTheAnswer);
   }
 
-  login(email, password, _id) {
+  login(email, password) {
     const urlId = `${this._url}/signin`;
 
     return fetch(urlId, {
       method: 'POST',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify({ email, password, _id }),
+      body: JSON.stringify({ email, password }),
     })
       .then(this._checkTheAnswer);
   }
