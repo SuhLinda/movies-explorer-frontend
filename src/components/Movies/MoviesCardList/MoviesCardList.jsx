@@ -35,13 +35,13 @@ function MoviesCardList({ movies, savedMovies, setSavedMovies, isSavedMoviesPage
         {listMovies.map((movie) => {
           movie.isSaved = false;
           // eslint-disable-next-line
-          JSON.parse(localStorage.getItem('savedMovies')).map((savedMovies) => {
+          JSON.parse(localStorage.getItem('savedMovies'))?.map((savedMovies) => {
             if (savedMovies.movieId === movie.id) {
               movie.isSaved = true;
             }
           })
           return <MoviesCard
-            key={isSavedMoviesPage ? movie.movieId : movie.id}
+            key={isSavedMoviesPage ? savedMovies._id : movie.id}
             movie={movie}
             savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}

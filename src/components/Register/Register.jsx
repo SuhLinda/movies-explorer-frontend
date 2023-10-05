@@ -27,15 +27,16 @@ function Register(
     handleChangeForm,
   } = useFormValidation();
 
-  async function onRegister({ name, email, password, _id }) {
+  async function onRegister({ name, email, password }) {
     try {
-      const userRegistration = await mainApi.registration(name, email, password, _id);
+      const userRegistration = await mainApi.registration(name, email, password);
       if (userRegistration) {
         setCurrentUser(userRegistration);
         setIsLoggedIn(true);
         setImage(imageInfoTooltipSuccess);
         setText('Вы успешно зарегистрировались!');
         navigate('/movies', {replace: true});
+
         localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = true));
       }
     } catch (res) {
@@ -55,7 +56,6 @@ function Register(
       name: values.name,
       email: values.email,
       password: values.password,
-      _id: values._id,
     })
   }
 

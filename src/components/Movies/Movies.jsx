@@ -20,8 +20,7 @@ function Movies(
     setText,
     openInfoTooltip,
     savedMovies,
-    isSavedMovies,
-    setIsSavedMovies
+    setSavedMovies,
   }) {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState(JSON.parse(localStorage.getItem('search')) || []);
@@ -81,7 +80,7 @@ function Movies(
         setImage(imageInfoTooltipUnSuccess);
         setText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
         openInfoTooltip();
-        console.log(err);
+        console.log(`ошибка: ${err}`);
       } finally {
         setIsLoading(false);
       }
@@ -105,7 +104,6 @@ function Movies(
     }
   }
 
-
   return (
     <section className="movies">
       <Header
@@ -127,6 +125,7 @@ function Movies(
         <MoviesCardList
           movies={movies}
           isSavedMoviesPage={false}
+          setSavedMovies={setSavedMovies}
         />
       }
       <Footer/>

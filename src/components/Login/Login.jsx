@@ -34,6 +34,7 @@ function Login(
         setImage(imageInfoTooltipSuccess);
         setText('Вы успешно зарегистрировались!');
         navigate('/movies', {replace: true});
+
         localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = true));
       } else {
         setCurrentUser({});

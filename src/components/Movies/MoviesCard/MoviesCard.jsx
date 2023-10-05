@@ -6,35 +6,54 @@ import { mainApi } from '../../../utils/MainApi.jsx';
 
 import { convertMinutesToHours } from '../../../utils/functions.jsx';
 
-function MoviesCard({ movie, isSavedMoviesPage, savedMovies, setSavedMovies }) {
+function MoviesCard({ movie, isSavedMoviesPage, setSavedMovies }) {
   const [isSavedMovies, setIsSavedMovies] = useState(false);
 
   async function handleSavedMovie() {
     try {
       const newSavedMovie = await mainApi.savedMovies(movie);
+
+      setSavedMovies((state) =>
+        state.map((item) =>
+          item._id === movie._id ? newSavedMovie : item
+        ),
+      );
+
       setIsSavedMovies(true);
       const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
       savedMovies.unshift(newSavedMovie);
       localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+
     } catch (err) {
       setIsSavedMovies(false);
-      console.log(err);
+      console.log(`ошибка: ${err}`);
     }
   }
 
   async function handleDeleteMovie() {
     try {
+      const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
       const filteredMovies = savedMovies.filter(item => item._id !== movie._id);
       localStorage.setItem('savedMovies', JSON.stringify(filteredMovies));
 
-      await mainApi.deleteMovie(movie._id);
+      if (!isSavedMoviesPage && movie.isSaved) {
+        const deletedMovie = savedMovies.filter((item) => item.movieId === movie.id);
+        deletedMovie.map((item) =>  mainApi.deleteMovie(item._id));
+        const filteredMovies = savedMovies.filter(item => item.movieId !== movie.id);
+        localStorage.setItem('savedMovies', JSON.stringify(filteredMovies));
 
-      setSavedMovies((state) =>
-        state.filter((item) =>
-          item._id !== movie._id));
-      setIsSavedMovies(false);
+        movie.isSaved = false;
+        setIsSavedMovies(false);
+      } else {
+        await mainApi.deleteMovie(movie._id);
+
+        setSavedMovies((state) =>
+          state.filter((item) =>
+            item._id !== movie._id));
+        setIsSavedMovies(false);
+      }
     } catch (err) {
-      console.log(err);
+      console.log(`ошибка: ${err}`);
     }
   }
 
@@ -71,7 +90,8 @@ function MoviesCard({ movie, isSavedMoviesPage, savedMovies, setSavedMovies }) {
                 <button
                   className="movies-card__button-checkmark_active"
                   type="button"
-                  aria-label="saved">
+                  aria-label="saved"
+                  onClick={handleDeleteMovie}>
                 </button>
                 :
                 <button

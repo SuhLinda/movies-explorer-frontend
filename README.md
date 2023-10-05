@@ -227,3 +227,5 @@ IP: 130.193.36.139
 Backend: api.lindasux.nomoredomainsicu.ru
 
 Frontend: lindasux.nomoredomainsicu.ru
+
+PR: 

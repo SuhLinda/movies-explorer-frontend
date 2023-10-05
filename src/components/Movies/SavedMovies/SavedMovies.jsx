@@ -30,6 +30,7 @@ function SavedMovies(
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
 
   useEffect(() => {
+    JSON.parse(localStorage.getItem('savedMovies'));
     mainApi.getSavedMovies()
       .then((savedMovies) => {
         if (shortMovies === false) {

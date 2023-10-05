@@ -11,7 +11,15 @@ import useFormValidation from '../../hooks/useFormValidation.jsx';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
-function Profile({ setCurrentUser, openInfoTooltip, setImage, setText, isLoggedIn, setIsLoggedIn }) {
+function Profile(
+  {
+    setCurrentUser,
+    openInfoTooltip,
+    setImage,
+    setText,
+    isLoggedIn,
+    setIsLoggedIn,
+  }) {
   const currentUser = useContext(CurrentUserContext);
 
   const {
@@ -29,7 +37,7 @@ function Profile({ setCurrentUser, openInfoTooltip, setImage, setText, isLoggedI
       })
       .catch((err) => {
         setCurrentUser({});
-        console.log(err);
+        console.log(`ошибка: ${err}`);
       })
   // eslint-disable-next-line
   }, [isLoggedIn]);

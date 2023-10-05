@@ -93,6 +93,7 @@ function App() {
                 openInfoTooltip={openInfoTooltip}
                 closeInfoTooltip={closeInfoTooltip}
                 savedMovies={savedMovies}
+                setSavedMovies={setSavedMovies}
               />
             }
           />
