@@ -228,4 +228,4 @@ Backend: api.lindasux.nomoredomainsicu.ru
 
 Frontend: lindasux.nomoredomainsicu.ru
 
-PR: 
+PR: https://github.com/SuhLinda/movies-explorer-frontend/pull/3
