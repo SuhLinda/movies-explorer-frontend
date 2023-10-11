@@ -1,6 +1,3 @@
-const BASE_URL_LOCALHOST_3000 = 'http://localhost:3000';
-const BASE_URL = 'https://lindasux.nomoredomainsicu.ru';
-
 /* routes */
 const SIGNUP = '/signup';
 const SIGNIN = '/signin';

@@ -119,7 +119,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: BASE_URL,
+  url: 'https://lindasux.nomoredomainsicu.ru',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
