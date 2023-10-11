@@ -50,8 +50,6 @@ const NUMBER_40 = 40;
 const NUMBER_60 = 60;
 
 export {
-  BASE_URL_LOCALHOST_3000,
-  BASE_URL,
   SIGNUP,
   SIGNIN,
   BASE_PAGE,
