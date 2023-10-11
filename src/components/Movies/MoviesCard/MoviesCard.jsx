@@ -6,6 +6,8 @@ import { mainApi } from '../../../utils/MainApi.jsx';
 
 import { convertMinutesToHours } from '../../../utils/functions.jsx';
 
+import { SAVED_MOVIES } from '../../../utils/constants.jsx';
+
 function MoviesCard({ movie, isSavedMoviesPage, setSavedMovies }) {
   const [isSavedMovies, setIsSavedMovies] = useState(false);
 
@@ -20,9 +22,9 @@ function MoviesCard({ movie, isSavedMoviesPage, setSavedMovies }) {
       );
 
       setIsSavedMovies(true);
-      const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+      const savedMovies = JSON.parse(localStorage.getItem(SAVED_MOVIES));
       savedMovies.unshift(newSavedMovie);
-      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+      localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedMovies));
 
     } catch (err) {
       setIsSavedMovies(false);
@@ -32,15 +34,15 @@ function MoviesCard({ movie, isSavedMoviesPage, setSavedMovies }) {
 
   async function handleDeleteMovie() {
     try {
-      const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+      const savedMovies = JSON.parse(localStorage.getItem(SAVED_MOVIES));
       const filteredMovies = savedMovies.filter(item => item._id !== movie._id);
-      localStorage.setItem('savedMovies', JSON.stringify(filteredMovies));
+      localStorage.setItem(SAVED_MOVIES, JSON.stringify(filteredMovies));
 
       if (!isSavedMoviesPage && movie.isSaved) {
         const deletedMovie = savedMovies.filter((item) => item.movieId === movie.id);
         deletedMovie.map((item) =>  mainApi.deleteMovie(item._id));
         const filteredMovies = savedMovies.filter(item => item.movieId !== movie.id);
-        localStorage.setItem('savedMovies', JSON.stringify(filteredMovies));
+        localStorage.setItem(SAVED_MOVIES, JSON.stringify(filteredMovies));
 
         movie.isSaved = false;
         setIsSavedMovies(false);

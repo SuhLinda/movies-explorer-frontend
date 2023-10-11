@@ -11,6 +11,8 @@ import useFormValidation from '../../hooks/useFormValidation.jsx';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
+import { BASE_PAGE, SUCCESS_MESSAGE_PROFILE, UNSUCCESS_MESSAGE } from '../../utils/constants.jsx';
+
 function Profile(
   {
     setCurrentUser,
@@ -23,7 +25,10 @@ function Profile(
   const currentUser = useContext(CurrentUserContext);
 
   const {
-    values, errors, isValid, handleChangeForm,
+    values,
+    errors,
+    isValid,
+    handleChangeForm,
   } = useFormValidation();
 
   const checkingValues = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
@@ -39,7 +44,7 @@ function Profile(
         setCurrentUser({});
         console.log(`ошибка: ${err}`);
       })
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [isLoggedIn]);
 
   async function onProfile({ name, email }) {
@@ -48,11 +53,11 @@ function Profile(
       if (newUser) {
         setCurrentUser(newUser);
         setImage(imageInfoTooltipSuccess);
-        setText('Изменения успешно сохранены!');
+        setText(SUCCESS_MESSAGE_PROFILE);
       }
     } catch (res) {
       setImage(imageInfoTooltipUnSuccess);
-      setText('Что-то пошло не так! Попробуйте ещё раз!');
+      setText(UNSUCCESS_MESSAGE);
       console.log(`ошибка: ${res}`);
     } finally {
       openInfoTooltip();
@@ -104,7 +109,7 @@ function Profile(
                 name="name"
                 minLength="2"
                 maxLength="30"
-                placeholder="имя"
+                placeholder={currentUser.name}
                 value={values.name || ""}
                 required
                 onChange={handleChangeForm}
@@ -124,7 +129,8 @@ function Profile(
                 type="email"
                 id="email"
                 name="email"
-                placeholder="email"
+                placeholder={currentUser.email}
+                pattern="^[\w]+@[a-zA-Z]+\.[a-zA-Z]{2,30}$"
                 value={values.email || ""}
                 required
                 onChange={handleChangeForm}
@@ -136,14 +142,14 @@ function Profile(
             </div>
           </fieldset>
           <button
-            className={`profile__button-edit ${isValid ? 'profile__button-edit_active' : ''}`}
+            className={`profile__button-edit ${isValid && currentUser.name !== values.name || isValid && currentUser.email !== values.email ? 'profile__button-edit_active' : ''}`}
             type="submit"
             aria-label="edit"
             disabled={checkingValues}>
             Редактировать
           </button>
           <Link
-            to='/'
+            to={BASE_PAGE}
             className="profile__link-exit"
             onClick={logOut}>
             Выйти из аккаунта

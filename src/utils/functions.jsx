@@ -1,14 +1,23 @@
-function convertMinutesToHours(min) {
-  let hours = Math.trunc(min / 60);
-  let minutes = min % 60;
+import {
+  MINUTES,
+  HOURS,
+  MINUTES_00,
+  NUMBER_0,
+  NUMBER_40,
+  NUMBER_60,
+} from '../utils/constants.jsx';
 
-  if (hours === 0) {
-    return minutes + 'м';
-  } else if (minutes === 0) {
+function convertMinutesToHours(min) {
+  let hours = Math.trunc(min / NUMBER_60);
+  let minutes = min % NUMBER_60;
+
+  if (hours === NUMBER_0) {
+    return minutes + MINUTES;
+  } else if (minutes === NUMBER_0) {
     // eslint-disable-next-line
-    return hours + 'ч ' + '00м';
+    return hours + HOURS + MINUTES_00;
   }
-  return hours + 'ч ' + minutes + 'м';
+  return hours + HOURS + minutes + MINUTES;
 }
 
 function handleMoviesFilter(movies, search) {
@@ -20,7 +29,7 @@ function handleMoviesFilter(movies, search) {
 
 function handleShortMoviesFilter(movies) {
   return movies.filter((movie) =>
-    movie.duration > 40
+    movie.duration < NUMBER_40
   );
 }
 

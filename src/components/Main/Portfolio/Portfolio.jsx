@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 
 import Footer from '../../Footer/Footer.jsx';
 
+import { STATIC_WEBSITE, ADAPTIVE_WEBSITE, SINGLE_PAGE_APPLICATION } from '../../../utils/constants.jsx';
+
 function Portfolio() {
   return (
     <>
@@ -12,7 +14,7 @@ function Portfolio() {
         <ul className="portfolio__container">
           <li className="container-links">
             <Link
-              to='https://suhlinda.github.io/how-to-learn/'
+              to={STATIC_WEBSITE}
               className="container-link"
               target="_blank"
               rel="noreferrer">
@@ -24,7 +26,7 @@ function Portfolio() {
           </li>
           <li className="container-links">
             <Link
-              to='https://suhlinda.github.io/russian-travel'
+              to={ADAPTIVE_WEBSITE}
               className="container-link"
               target="_blank"
               rel="noreferrer">
@@ -36,7 +38,7 @@ function Portfolio() {
           </li>
           <li className="container-links">
             <Link
-              to='https://github.com/SuhLinda/react-mesto-api-full-gha'
+              to={SINGLE_PAGE_APPLICATION}
               className="container-link"
               target="_blank"
               rel="noreferrer">

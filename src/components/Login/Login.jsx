@@ -8,6 +8,15 @@ import headerLogo from '../../images/header__logo.svg';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
+import {
+  SIGNUP,
+  MOVIES_PAGE,
+  IS_LOGGED_IN,
+  SUCCESS_MESSAGE,
+  UNSUCCESS_MESSAGE,
+  BASE_PAGE,
+} from '../../utils/constants.jsx';
+
 function Login(
   {
     setCurrentUser,
@@ -25,27 +34,27 @@ function Login(
     handleChangeForm,
   } = useFormValidation();
 
-  async function onLogin({ email, password }) {
+  async function onLogin({email, password}) {
     try {
       const userLogin = await mainApi.login(email, password);
       if (userLogin) {
         setCurrentUser(userLogin);
         setIsLoggedIn(true);
         setImage(imageInfoTooltipSuccess);
-        setText('Вы успешно зарегистрировались!');
-        navigate('/movies', {replace: true});
+        setText(SUCCESS_MESSAGE);
+        navigate(MOVIES_PAGE, {replace: true});
 
-        localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = true));
+        localStorage.setItem(IS_LOGGED_IN, JSON.stringify(isLoggedIn = true));
       } else {
         setCurrentUser({});
         setIsLoggedIn(false);
-        localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = false));
+        localStorage.setItem(IS_LOGGED_IN, JSON.stringify(isLoggedIn = false));
       }
-    } catch (res) {
+    } catch (err) {
       setIsLoggedIn(false);
       setImage(imageInfoTooltipUnSuccess);
-      setText('Что-то пошло не так! Попробуйте ещё раз!');
-      console.log(`ошибка: ${res}`);
+      setText(UNSUCCESS_MESSAGE);
+      console.log(`ошибка: ${err}`);
     } finally {
       openInfoTooltip();
     }
@@ -62,7 +71,7 @@ function Login(
 
   return (
     <section className="login">
-      <Link to='/'>
+      <Link to={BASE_PAGE}>
         <img
           className="register__logo"
           src={headerLogo}
@@ -85,6 +94,7 @@ function Login(
             id="email"
             name="email"
             value={values.email || ''}
+            pattern="^[\w]+@[a-zA-Z]+\.[a-zA-Z]{2,30}$"
             onChange={handleChangeForm}
             required
           />
@@ -118,7 +128,7 @@ function Login(
       <p className="register__text">
         Ещё не зарегистрированы?
         <Link
-          to='/signup'
+          to={SIGNUP}
           className="register__link">
           <span className="register__signature">
             Регистрация

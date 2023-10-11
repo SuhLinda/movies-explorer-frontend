@@ -10,6 +10,15 @@ import headerLogo from '../../images/header__logo.svg';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
+import {
+  BASE_PAGE,
+  SIGNIN,
+  MOVIES_PAGE,
+  IS_LOGGED_IN,
+  SUCCESS_MESSAGE,
+  UNSUCCESS_MESSAGE,
+} from '../../utils/constants.jsx';
+
 function Register(
   {
     setCurrentUser,
@@ -27,22 +36,22 @@ function Register(
     handleChangeForm,
   } = useFormValidation();
 
-  async function onRegister({ name, email, password }) {
+  async function onRegister({name, email, password}) {
     try {
       const userRegistration = await mainApi.registration(name, email, password);
       if (userRegistration) {
         setCurrentUser(userRegistration);
         setIsLoggedIn(true);
         setImage(imageInfoTooltipSuccess);
-        setText('Вы успешно зарегистрировались!');
-        navigate('/movies', {replace: true});
+        setText(SUCCESS_MESSAGE);
+        navigate(MOVIES_PAGE, {replace: true});
 
-        localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn = true));
+        localStorage.setItem(IS_LOGGED_IN, JSON.stringify(isLoggedIn = true));
       }
     } catch (res) {
       setIsLoggedIn(false);
       setImage(imageInfoTooltipUnSuccess);
-      setText('Что-то пошло не так! Попробуйте ещё раз!');
+      setText(UNSUCCESS_MESSAGE);
       console.log(`ошибка: ${res}`);
     } finally {
       openInfoTooltip();
@@ -61,7 +70,7 @@ function Register(
 
   return (
     <section className="register">
-      <Link to='/'>
+      <Link to={BASE_PAGE}>
         <img
           className="register__logo"
           src={headerLogo}
@@ -101,6 +110,7 @@ function Register(
             id="email"
             name="email"
             value={values.email || ''}
+            pattern="^[\w]+@[A-Za-z]+\.[A-Za-z]{2,30}$"
             required
             onChange={handleChangeForm}
           />
@@ -135,7 +145,7 @@ function Register(
       <p className="register__text">
         Уже зарегистрированы?
         <Link
-          to='/signin'
+          to={SIGNIN}
           className="register__link">
           <span className="register__signature">
             Войти

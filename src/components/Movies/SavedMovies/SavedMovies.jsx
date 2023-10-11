@@ -12,6 +12,15 @@ import Preloader from '../Preloader/Preloader.jsx';
 
 import imageInfoTooltipUnSuccess from '../../../images/info-tooltip_unsuccessfully.svg';
 
+import {
+  SAVED_MOVIES,
+  SHORT_MOVIES,
+  SEARCH,
+  ERROR_SERVER_MESSAGE,
+  NOT_SEARCH,
+  NUMBER_0,
+} from '../../../utils/constants.jsx';
+
 function SavedMovies(
   {
     isLoggedIn,
@@ -27,72 +36,99 @@ function SavedMovies(
   }) {
   const [search, setSearch] = useState([]);
   const [isSearchErr, setIsSearchErr] = useState(false);
-  const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
+  const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem(SHORT_MOVIES)) || false);
 
   useEffect(() => {
-    JSON.parse(localStorage.getItem('savedMovies'));
     mainApi.getSavedMovies()
       .then((savedMovies) => {
-        if (shortMovies === false) {
-          const shortSavedMoviesList = handleShortMoviesFilter(savedMovies);
-          setSavedMovies(shortSavedMoviesList.reverse());
-        } else {
-          setSavedMovies(savedMovies.reverse());
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    // eslint-disable-next-line
-  }, [shortMovies, search]);
+        localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedMovies));
 
-  async function handleMoviesSearch() {
-    if (search.length === 0) {
-      setIsSearchErr(true);
-      setSavedMovies(savedMovies);
-    } else {
-      try {
         setIsLoading(true);
         setIsSearchErr(false);
         setSearch(search);
-
-        if (shortMovies === false) {
-
-        } else {
-          const savedMoviesListSearch = handleMoviesFilter(savedMovies, search);
-
-          handleLengthSearch(savedMoviesListSearch);
-          setSavedMovies(savedMoviesListSearch);
-        }
-
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-        localStorage.setItem('search', JSON.stringify(search));
-        localStorage.setItem('shortMovies', JSON.stringify(shortMovies));
-      } catch (err) {
+        setSavedMovies(savedMovies.reverse());
+      })
+      .catch((err) => {
         setImage(imageInfoTooltipUnSuccess);
-        setText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        setText(ERROR_SERVER_MESSAGE);
         openInfoTooltip();
-        console.log(err);
-      } finally {
+        console.log(`ошибка: ${err}`);
+      })
+      .finally(() => {
         setIsLoading(false);
+      })
+    // eslint-disable-next-line
+  }, []);
+
+  async function handleMoviesSearch() {
+    const savedMovies = JSON.parse(localStorage.getItem(SAVED_MOVIES));
+    if (search.length === NUMBER_0) {
+      setIsSearchErr(true);
+      setSavedMovies(savedMovies);
+    } else {
+      setIsLoading(true);
+      setIsSearchErr(false);
+      setSearch(search);
+
+      if (shortMovies === false) {
+        const savedMoviesListSearch = handleMoviesFilter(savedMovies, search);
+
+        handleLengthSearch(savedMoviesListSearch);
+
+        setSavedMovies(savedMoviesListSearch.reverse());
+      } else {
+        const shortSavedMoviesList = handleShortMoviesFilter(savedMovies);
+        const savedMoviesListSearch = handleMoviesFilter(shortSavedMoviesList, search);
+
+        handleLengthSearch(savedMoviesListSearch);
+        setSavedMovies(savedMoviesListSearch.reverse());
       }
+      setIsLoading(false);
+
+      localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedMovies));
+      localStorage.setItem(SEARCH, JSON.stringify(search));
+      localStorage.setItem(SHORT_MOVIES, JSON.stringify(shortMovies));
     }
   }
 
   function handleLengthSearch(searchQuery) {
-    if (searchQuery.length === 0) {
+    if (searchQuery.length === NUMBER_0) {
       setImage(imageInfoTooltipUnSuccess);
-      setText('Ничего не найдено...');
+      setText(NOT_SEARCH);
       openInfoTooltip();
     }
   }
 
   async function handleShortMoviesSearch() {
     if (shortMovies === false) {
+      const savedMovies = JSON.parse(localStorage.getItem(SAVED_MOVIES));
       setShortMovies(true);
-    }
-    if (shortMovies === true) {
+
+      if (search.length === NUMBER_0) {
+        const shortSavedMoviesList = handleShortMoviesFilter(savedMovies);
+        setSavedMovies(shortSavedMoviesList.reverse());
+
+      } else {
+        const shortSavedMoviesList = handleShortMoviesFilter(savedMovies);
+        const savedMoviesListSearch = handleMoviesFilter(shortSavedMoviesList, search);
+
+
+        handleLengthSearch(savedMoviesListSearch);
+        setSavedMovies(savedMoviesListSearch.reverse());
+      }
+    } else {
+      const savedMovies = JSON.parse(localStorage.getItem(SAVED_MOVIES));
       setShortMovies(false);
+
+      if (search.length === NUMBER_0) {
+        setSavedMovies(savedMovies.reverse());
+      } else {
+        const savedMoviesListSearch = handleMoviesFilter(savedMovies, search);
+
+        handleLengthSearch(savedMoviesListSearch);
+
+        setSavedMovies(savedMoviesListSearch.reverse());
+      }
     }
   }
 
@@ -111,7 +147,7 @@ function SavedMovies(
         shortMovies={shortMovies}
       />
       {isLoading &&
-        <Preloader />
+        <Preloader/>
       }
       {!isLoading &&
         <MoviesCardList
@@ -123,7 +159,7 @@ function SavedMovies(
           setIsSavedMovies={setIsSavedMovies}
         />
       }
-      <Footer />
+      <Footer/>
     </section>
   )
 }

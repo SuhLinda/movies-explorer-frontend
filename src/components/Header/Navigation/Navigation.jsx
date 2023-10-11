@@ -4,6 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 import BurgerMenu from '../BurgerMenu/BurgerMenu.jsx';
 
+import { SIGNUP, SIGNIN, MOVIES_PAGE, SAVED_MOVIES_PAGE, PROFILE_PAGE } from '../../../utils/constants.jsx';
+
 function Navigation({ isLoggedIn }) {
   const location = useLocation().pathname;
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
@@ -33,29 +35,29 @@ function Navigation({ isLoggedIn }) {
           </button>
           <div className="navigation__links_container">
             <Link
-              to='/movies'
-              className={location === '/movies' ? 'link_active' : 'link'}>
+              to={MOVIES_PAGE}
+              className={location === MOVIES_PAGE ? 'link_active' : 'link'}>
               Фильмы
             </ Link>
             <Link
-              to='/saved-movies'
-              className={location === '/saved-movies' ? 'link_active' : 'link'}>
+              to={SAVED_MOVIES_PAGE}
+              className={location === SAVED_MOVIES_PAGE ? 'link_active' : 'link'}>
               Сохранённые фильмы
             </ Link>
           </div>
           <Link
-            to='/profile'
+            to={PROFILE_PAGE}
             className="link navigation__profile" />
         </>
       ) : (
         <>
           <Link
-            to='/signup'
+            to={SIGNUP}
             className="navigation__registration">
             Регистрация
           </ Link>
           <Link
-            to='/signin'
+            to={SIGNIN}
             className="navigation__login">
             Войти
           </ Link>

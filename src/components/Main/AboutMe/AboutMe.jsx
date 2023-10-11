@@ -1,5 +1,7 @@
 import studentInfoImg from '../../../images/about-me__info_img.jpeg';
 
+import { GITHUB_PAGE } from '../../../utils/constants.jsx';
+
 function AboutMe() {
   return (
     <section
@@ -23,7 +25,7 @@ function AboutMe() {
         </p>
         <a
           className="about-me__info-link"
-          href="https://github.com/SuhLinda"
+          href={GITHUB_PAGE}
           target="_blank"
           rel="noreferrer">
           Github

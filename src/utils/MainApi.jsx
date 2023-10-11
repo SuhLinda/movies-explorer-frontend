@@ -1,3 +1,5 @@
+import { BASE_URL } from '../utils/constants.jsx';
+
 class MainApi {
   constructor({ url, headers }) {
     this._url = url;
@@ -117,7 +119,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: 'https://api.lindasux.nomoredomainsicu.ru',
+  url: BASE_URL,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',

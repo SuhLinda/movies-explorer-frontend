@@ -2,6 +2,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 import useClosePopup from '../../../hooks/useClosePopup.jsx';
 
+import { BASE_PAGE, MOVIES_PAGE, SAVED_MOVIES_PAGE, PROFILE_PAGE } from '../../../utils/constants.jsx';
+
 function BurgerMenu({ isOpen, onClose }) {
   const location = useLocation().pathname;
 
@@ -19,29 +21,29 @@ function BurgerMenu({ isOpen, onClose }) {
         </button>
         <div className="burger-menu__links">
           <Link
-            to='/'
-            className={location === '/' ? 'link-active' : 'link'}>
+            to={BASE_PAGE}
+            className={location === BASE_PAGE ? 'link-active' : 'link'}>
             <h2 className="link-title">
               Главная
             </h2>
           </ Link>
           <Link
-            to='/movies'
-            className={location === '/movies' ? 'link-active' : 'link'}>
+            to={MOVIES_PAGE}
+            className={location === MOVIES_PAGE ? 'link-active' : 'link'}>
             <h2 className="link-title">
               Фильмы
             </h2>
           </ Link>
           <Link
-            to='/saved-movies'
-            className={location === '/saved-movies' ? 'link-active' : 'link'}>
+            to={SAVED_MOVIES_PAGE}
+            className={location === SAVED_MOVIES_PAGE ? 'link-active' : 'link'}>
             <h2 className="link-title">
               Сохранённые фильмы
             </h2>
           </ Link>
         </div>
         <Link
-          to='/profile'
+          to={PROFILE_PAGE}
           className="burger-menu__button-edit" />
       </div>
     </section>

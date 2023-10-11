@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.jsx';
+
+import { SIGNUP, SIGNIN, BASE_PAGE, MOVIES_PAGE, SAVED_MOVIES_PAGE, PROFILE_PAGE, NOT_FOUND_PAGE, IS_LOGGED_IN, SAVED_MOVIES } from '../../utils/constants.jsx';
 
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
@@ -14,23 +16,14 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('isLoggedIn')) || false);
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem(IS_LOGGED_IN)) || false);
   const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [image, setImage] = useState('');
   const [text, setText] = useState('');
-  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
+  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem(SAVED_MOVIES)) || []);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    JSON.parse(localStorage.getItem('isLoggedIn'));
-  }, [isLoggedIn]);
-
-
-  useEffect(() => {
-    JSON.parse(localStorage.getItem('savedMovies'));
-  }, [savedMovies]);
 
   function openInfoTooltip() {
     setInfoTooltipOpen(true);
@@ -45,35 +38,37 @@ function App() {
       <div className="app">
         <Routes>
           <Route
-            path='/signup'
+            path={SIGNUP}
             element={
-              <Register
-                setCurrentUser={setCurrentUser}
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-                setImage={setImage}
-                setText={setText}
-                navigate={navigate}
-                openInfoTooltip={openInfoTooltip}
-              />
+            <ProtectedRoute
+              element={Register}
+              isLoggedIn={!isLoggedIn}
+              setCurrentUser={setCurrentUser}
+              setIsLoggedIn={setIsLoggedIn}
+              setImage={setImage}
+              setText={setText}
+              navigate={navigate}
+              openInfoTooltip={openInfoTooltip}
+            />
             }
           />
           <Route
-            path='/signin'
+            path={SIGNIN}
             element={
-              <Login
-                setCurrentUser={setCurrentUser}
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-                setImage={setImage}
-                setText={setText}
-                navigate={navigate}
-                openInfoTooltip={openInfoTooltip}
-              />
+            <ProtectedRoute
+              element={Login}
+              isLoggedIn={!isLoggedIn}
+              setCurrentUser={setCurrentUser}
+              setIsLoggedIn={setIsLoggedIn}
+              setImage={setImage}
+              setText={setText}
+              navigate={navigate}
+              openInfoTooltip={openInfoTooltip}
+            />
             }
           />
           <Route
-            path='/'
+            path={BASE_PAGE}
             element={
               <Main
                 isLoggedIn={isLoggedIn}
@@ -81,7 +76,7 @@ function App() {
             }
           />
           <Route
-            path="/movies"
+            path={MOVIES_PAGE}
             element={
               <ProtectedRoute
                 element={Movies}
@@ -98,7 +93,7 @@ function App() {
             }
           />
           <Route
-            path='/saved-movies'
+            path={SAVED_MOVIES_PAGE}
             element={
               <ProtectedRoute
                 element={SavedMovies}
@@ -117,7 +112,7 @@ function App() {
             }
           />
           <Route
-            path='/profile'
+            path={PROFILE_PAGE}
             element={
               <ProtectedRoute
                 element={Profile}
@@ -131,9 +126,9 @@ function App() {
             }
           />
           <Route
-            path='*'
+            path={NOT_FOUND_PAGE}
             element={
-              <ErrorNotFound />
+              <ErrorNotFound/>
             }
           />
         </ Routes>
