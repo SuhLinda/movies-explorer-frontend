@@ -38,10 +38,12 @@ function MoviesCard({ movie, isSavedMoviesPage, setSavedMovies }) {
       const filteredMovies = savedMovies.filter(item => item._id !== movie._id);
       localStorage.setItem(SAVED_MOVIES, JSON.stringify(filteredMovies));
 
-      if (!isSavedMoviesPage && movie.isSaved) {
+      if (!isSavedMoviesPage) {
         const deletedMovie = savedMovies.filter((item) => item.movieId === movie.id);
+
         deletedMovie.map((item) =>  mainApi.deleteMovie(item._id));
         const filteredMovies = savedMovies.filter(item => item.movieId !== movie.id);
+
         localStorage.setItem(SAVED_MOVIES, JSON.stringify(filteredMovies));
 
         movie.isSaved = false;

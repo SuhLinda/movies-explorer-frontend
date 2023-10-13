@@ -12,8 +12,11 @@ const IS_LOGGED_IN= 'isLoggedIn';
 const MOVIES = 'movies';
 const SAVED_MOVIES= 'savedMovies';
 const SHORT_MOVIES= 'shortMovies';
+const SHORT_SAVED_MOVIES = 'shortSavedMovies';
 const SEARCH = 'search';
+const SEARCH_SAVED_MOVIES = 'searchSavedMovies';
 const FILTER_MOVIES = 'filterMovie';
+const FILTER_SAVED_MOVIES = 'filterSavedMovie';
 
 /* links */
 
@@ -61,8 +64,11 @@ export {
   MOVIES,
   SAVED_MOVIES,
   SHORT_MOVIES,
+  SHORT_SAVED_MOVIES,
   SEARCH,
+  SEARCH_SAVED_MOVIES,
   FILTER_MOVIES,
+  FILTER_SAVED_MOVIES,
   YANDEX,
   GITHUB_PAGE,
   STATIC_WEBSITE,

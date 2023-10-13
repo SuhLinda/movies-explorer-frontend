@@ -15,6 +15,7 @@ import {
   SUCCESS_MESSAGE,
   UNSUCCESS_MESSAGE,
   BASE_PAGE,
+  SAVED_MOVIES,
 } from '../../utils/constants.jsx';
 
 function Login(
@@ -26,6 +27,7 @@ function Login(
     setText,
     navigate,
     openInfoTooltip,
+    savedMovies,
   }) {
   const {
     values,
@@ -45,10 +47,13 @@ function Login(
         navigate(MOVIES_PAGE, {replace: true});
 
         localStorage.setItem(IS_LOGGED_IN, JSON.stringify(isLoggedIn = true));
+        localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedMovies = []));
       } else {
         setCurrentUser({});
         setIsLoggedIn(false);
+
         localStorage.setItem(IS_LOGGED_IN, JSON.stringify(isLoggedIn = false));
+        localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedMovies = []));
       }
     } catch (err) {
       setIsLoggedIn(false);

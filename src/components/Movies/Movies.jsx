@@ -32,6 +32,7 @@ function Movies(
     openInfoTooltip,
     savedMovies,
     setSavedMovies,
+    isSavedMovies,
   }) {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState(JSON.parse(localStorage.getItem(SEARCH)) || []);
@@ -133,11 +134,12 @@ function Movies(
   async function handleShortMoviesSearch() {
     if (shortMovies === false) {
       setShortMovies(true);
+      localStorage.setItem(SHORT_MOVIES, JSON.stringify(!shortMovies));
     }
     if (shortMovies === true) {
       setShortMovies(false);
+      localStorage.setItem(SHORT_MOVIES, JSON.stringify(!shortMovies));
     }
-    localStorage.setItem(SHORT_MOVIES, JSON.stringify(shortMovies));
   }
 
   return (

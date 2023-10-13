@@ -11,7 +11,12 @@ import useFormValidation from '../../hooks/useFormValidation.jsx';
 import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
 import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
-import { BASE_PAGE, SUCCESS_MESSAGE_PROFILE, UNSUCCESS_MESSAGE } from '../../utils/constants.jsx';
+import {
+  BASE_PAGE,
+  SAVED_MOVIES,
+  SUCCESS_MESSAGE_PROFILE,
+  UNSUCCESS_MESSAGE
+} from '../../utils/constants.jsx';
 
 function Profile(
   {
@@ -29,11 +34,13 @@ function Profile(
     errors,
     isValid,
     handleChangeForm,
+    resetFormValues,
   } = useFormValidation();
 
   const checkingValues = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
 
   useEffect(() => {
+    JSON.parse(localStorage.getItem(SAVED_MOVIES));
     mainApi.getUserMe()
       .then((user) => {
         if (user) {
@@ -46,6 +53,10 @@ function Profile(
       })
     // eslint-disable-next-line
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    currentUser ? resetFormValues(currentUser) : resetFormValues();
+  }, [currentUser, resetFormValues]);
 
   async function onProfile({ name, email }) {
     try {
@@ -86,7 +97,8 @@ function Profile(
     }
   }
 
-  return (<>
+  return (
+    <>
       <Header
         isLoggedIn={isLoggedIn}
       />
@@ -109,8 +121,8 @@ function Profile(
                 name="name"
                 minLength="2"
                 maxLength="30"
-                placeholder={currentUser.name}
-                value={values.name || ""}
+                placeholder="Имя"
+                value={values.name || ''}
                 required
                 onChange={handleChangeForm}
               />
@@ -129,9 +141,9 @@ function Profile(
                 type="email"
                 id="email"
                 name="email"
-                placeholder={currentUser.email}
+                placeholder="email"
                 pattern="^[\w]+@[a-zA-Z]+\.[a-zA-Z]{2,30}$"
-                value={values.email || ""}
+                value={values.email || ''}
                 required
                 onChange={handleChangeForm}
               />

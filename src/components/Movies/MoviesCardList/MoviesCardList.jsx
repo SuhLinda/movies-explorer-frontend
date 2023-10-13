@@ -19,7 +19,7 @@ import {
   NUMBER_12,
 } from '../../../utils/constants.jsx';
 
-function MoviesCardList({movies, savedMovies, setSavedMovies, isSavedMoviesPage, filterMovie}) {
+function MoviesCardList({movies, savedMovies, setSavedMovies, isSavedMoviesPage}) {
   const screenWidth = useScreenWidth();
   const totalMovies = movies ? movies.length : NUMBER_0;
   const [listMovies, setListMovies] = useState(movies);
@@ -56,7 +56,6 @@ function MoviesCardList({movies, savedMovies, setSavedMovies, isSavedMoviesPage,
           return <MoviesCard
             key={isSavedMoviesPage ? movie._id : movie.id}
             movie={movie}
-            savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}
             isSavedMoviesPage={isSavedMoviesPage}
           />
@@ -68,7 +67,6 @@ function MoviesCardList({movies, savedMovies, setSavedMovies, isSavedMoviesPage,
           movies={movies}
           listMovies={listMovies}
           setListMovies={setListMovies}
-          filterMovie={filterMovie}
         /> : ''
       }
     </section>

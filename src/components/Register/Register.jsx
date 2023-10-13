@@ -16,7 +16,7 @@ import {
   MOVIES_PAGE,
   IS_LOGGED_IN,
   SUCCESS_MESSAGE,
-  UNSUCCESS_MESSAGE,
+  UNSUCCESS_MESSAGE, SAVED_MOVIES,
 } from '../../utils/constants.jsx';
 
 function Register(
@@ -28,6 +28,7 @@ function Register(
     setText,
     navigate,
     openInfoTooltip,
+    savedMovies,
   }) {
   const {
     values,
@@ -47,6 +48,7 @@ function Register(
         navigate(MOVIES_PAGE, {replace: true});
 
         localStorage.setItem(IS_LOGGED_IN, JSON.stringify(isLoggedIn = true));
+        localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedMovies = []));
       }
     } catch (res) {
       setIsLoggedIn(false);

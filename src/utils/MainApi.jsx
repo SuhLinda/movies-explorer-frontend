@@ -1,5 +1,3 @@
-import { BASE_URL } from '../utils/constants.jsx';
-
 class MainApi {
   constructor({ url, headers }) {
     this._url = url;
@@ -107,7 +105,7 @@ class MainApi {
   }
 
   deleteMovie(id) {
-    const urlId = `${this._url}/movies/${id}`;
+    const urlId = `${this._url}/moviess/${id}`;
 
     return fetch(urlId, {
       method: 'DELETE',
@@ -119,7 +117,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: 'https://api.lindasux.nomoredomainsicu.ru',
+  url: 'http://localhost:3000',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
