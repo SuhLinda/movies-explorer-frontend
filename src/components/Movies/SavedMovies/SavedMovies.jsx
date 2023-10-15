@@ -33,10 +33,9 @@ function SavedMovies(
     savedMovies,
     setSavedMovies,
   }) {
-  const [searchSavedMovies, setSearchSavedMovies] = useState(JSON.parse(localStorage.getItem(SEARCH_SAVED_MOVIES)) || []);
+  const [searchSavedMovies, setSearchSavedMovies] = useState([]);
   const [isSearchErr, setIsSearchErr] = useState(false);
-  const [shortSavedMovies, setShortSavedMovies] = useState(JSON.parse(localStorage.getItem(SHORT_SAVED_MOVIES)) || false);
-  const [filterSavedMovie, setFilterSavedMovie] = useState([]);
+  const [shortSavedMovies, setShortSavedMovies] = useState(false);
 
   useEffect(() => {
     const filterSavedMovie = JSON.parse(localStorage.getItem(FILTER_SAVED_MOVIES));
@@ -45,7 +44,6 @@ function SavedMovies(
       mainApi.getSavedMovies()
         .then((savedMovies) => {
           localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedMovies));
-          localStorage.setItem(FILTER_SAVED_MOVIES, JSON.stringify(filterSavedMovie));
 
           setIsLoading(true);
           setIsSearchErr(false);
@@ -83,24 +81,18 @@ function SavedMovies(
         handleLengthSearch(savedMoviesListSearch);
 
         setSavedMovies(savedMoviesListSearch.reverse());
-        setFilterSavedMovie(savedMoviesListSearch.reverse());
 
-        localStorage.setItem(FILTER_SAVED_MOVIES, JSON.stringify(savedMoviesListSearch));
       } else {
         const shortSavedMoviesList = handleShortMoviesFilter(savedMovies);
         const savedMoviesListSearch = handleMoviesFilter(shortSavedMoviesList, searchSavedMovies);
 
         handleLengthSearch(savedMoviesListSearch);
         setSavedMovies(savedMoviesListSearch.reverse());
-        setFilterSavedMovie(savedMoviesListSearch.reverse());
 
-        localStorage.setItem(FILTER_SAVED_MOVIES, JSON.stringify(savedMoviesListSearch));
       }
       setIsLoading(false);
 
       localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedMovies));
-      localStorage.setItem(SEARCH_SAVED_MOVIES, JSON.stringify(searchSavedMovies));
-      localStorage.setItem(SHORT_SAVED_MOVIES, JSON.stringify(shortSavedMovies));
     }
   }
 
@@ -114,7 +106,6 @@ function SavedMovies(
 
   async function handleShortMoviesSearch() {
     if (shortSavedMovies === false) {
-      localStorage.setItem(SHORT_SAVED_MOVIES, JSON.stringify(!shortSavedMovies));
 
       const savedMovies = JSON.parse(localStorage.getItem(SAVED_MOVIES));
       setShortSavedMovies(true);
@@ -123,10 +114,6 @@ function SavedMovies(
         const shortSavedMoviesList = handleShortMoviesFilter(savedMovies);
         setSavedMovies(shortSavedMoviesList.reverse());
 
-        setFilterSavedMovie(shortSavedMoviesList.reverse());
-
-        localStorage.setItem(FILTER_SAVED_MOVIES, JSON.stringify(shortSavedMoviesList.reverse()));
-
       } else {
         const shortSavedMoviesList = handleShortMoviesFilter(savedMovies);
         const savedMoviesListSearch = handleMoviesFilter(shortSavedMoviesList, searchSavedMovies);
@@ -134,12 +121,8 @@ function SavedMovies(
         handleLengthSearch(savedMoviesListSearch);
         setSavedMovies(savedMoviesListSearch.reverse());
 
-        setFilterSavedMovie(savedMoviesListSearch.reverse());
-
-        localStorage.setItem(FILTER_SAVED_MOVIES, JSON.stringify(savedMoviesListSearch.reverse()));
       }
     } else {
-      localStorage.setItem(SHORT_SAVED_MOVIES, JSON.stringify(!shortSavedMovies));
 
       const savedMovies = JSON.parse(localStorage.getItem(SAVED_MOVIES));
       setShortSavedMovies(false);
@@ -147,19 +130,12 @@ function SavedMovies(
       if (searchSavedMovies.length === NUMBER_0) {
         setSavedMovies(savedMovies.reverse());
 
-        localStorage.setItem(FILTER_SAVED_MOVIES, JSON.stringify(savedMovies.reverse()));
-
-        setFilterSavedMovie(savedMovies.reverse());
       } else {
         const savedMoviesListSearch = handleMoviesFilter(savedMovies, searchSavedMovies);
 
         handleLengthSearch(savedMoviesListSearch);
 
         setSavedMovies(savedMoviesListSearch.reverse());
-
-        localStorage.setItem(FILTER_SAVED_MOVIES, JSON.stringify(savedMoviesListSearch.reverse()));
-
-        setFilterSavedMovie(savedMoviesListSearch.reverse());
       }
     }
   }
@@ -187,7 +163,6 @@ function SavedMovies(
           savedMovies={savedMovies}
           setSavedMovies={setSavedMovies}
           isSavedMoviesPage={true}
-          filterMovie={filterSavedMovie}
           setImage={setImage}
           setText={setText}
           openInfoTooltip={openInfoTooltip}
