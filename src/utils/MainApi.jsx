@@ -105,7 +105,7 @@ class MainApi {
   }
 
   deleteMovie(id) {
-    const urlId = `${this._url}/moviess/${id}`;
+    const urlId = `${this._url}/movies/${id}`;
 
     return fetch(urlId, {
       method: 'DELETE',
@@ -117,7 +117,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: 'http://localhost:3000',
+  url: 'https://api.lindasux.nomoredomainsicu.ru',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',

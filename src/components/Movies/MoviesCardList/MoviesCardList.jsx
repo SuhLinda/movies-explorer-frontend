@@ -19,7 +19,7 @@ import {
   NUMBER_12,
 } from '../../../utils/constants.jsx';
 
-function MoviesCardList({movies, savedMovies, setSavedMovies, isSavedMoviesPage}) {
+function MoviesCardList({ movies, setSavedMovies, isSavedMoviesPage, setImage, setText, openInfoTooltip }) {
   const screenWidth = useScreenWidth();
   const totalMovies = movies ? movies.length : NUMBER_0;
   const [listMovies, setListMovies] = useState(movies);
@@ -58,6 +58,9 @@ function MoviesCardList({movies, savedMovies, setSavedMovies, isSavedMoviesPage}
             movie={movie}
             setSavedMovies={setSavedMovies}
             isSavedMoviesPage={isSavedMoviesPage}
+            setImage={setImage}
+            setText={setText}
+            openInfoTooltip={openInfoTooltip}
           />
         })}
       </ul>

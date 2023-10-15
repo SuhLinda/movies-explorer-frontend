@@ -6,9 +6,11 @@ import { mainApi } from '../../../utils/MainApi.jsx';
 
 import { convertMinutesToHours } from '../../../utils/functions.jsx';
 
-import { SAVED_MOVIES } from '../../../utils/constants.jsx';
+import {UNSUCCESS_MESSAGE, SAVED_MOVIES, DELETED_MOVIE_MESSAGE} from '../../../utils/constants.jsx';
+import imageInfoTooltipUnSuccess from "../../../images/info-tooltip_unsuccessfully.svg";
+import imageInfoTooltipSuccess from "../../../images/info-tooltip_successfully.svg";
 
-function MoviesCard({ movie, isSavedMoviesPage, setSavedMovies }) {
+function MoviesCard({ movie, isSavedMoviesPage, setSavedMovies, setImage, setText, openInfoTooltip }) {
   const [isSavedMovies, setIsSavedMovies] = useState(false);
 
   async function handleSavedMovie() {
@@ -33,31 +35,44 @@ function MoviesCard({ movie, isSavedMoviesPage, setSavedMovies }) {
   }
 
   async function handleDeleteMovie() {
-    try {
-      const savedMovies = JSON.parse(localStorage.getItem(SAVED_MOVIES));
-      const filteredMovies = savedMovies.filter(item => item._id !== movie._id);
-      localStorage.setItem(SAVED_MOVIES, JSON.stringify(filteredMovies));
+    const savedMovies = JSON.parse(localStorage.getItem(SAVED_MOVIES));
 
-      if (!isSavedMoviesPage) {
-        const deletedMovie = savedMovies.filter((item) => item.movieId === movie.id);
+    if (!isSavedMoviesPage) {
+      savedMovies.filter((item) => item.movieId === movie.id).map((movie) => mainApi.deleteMovie(movie._id)
+        .then(() => {
+          setIsSavedMovies(false);
+          setImage(imageInfoTooltipSuccess);
+          setText(DELETED_MOVIE_MESSAGE);
+          openInfoTooltip();
+          const filteredMovies = savedMovies.filter(item => item._id !== movie._id);
+          localStorage.setItem(SAVED_MOVIES, JSON.stringify(filteredMovies));
+        })
+        .catch((err) => {
+          setIsSavedMovies(true);
+          setImage(imageInfoTooltipUnSuccess);
+          setText(UNSUCCESS_MESSAGE);
+          openInfoTooltip();
+          console.log(`ошибка: ${err}`);
+        })
+      )
+    } else {
+      mainApi.deleteMovie(movie._id)
+        .then(() => {
+          setSavedMovies((state) =>
+            state.filter((item) =>
+              item._id !== movie._id));
 
-        deletedMovie.map((item) =>  mainApi.deleteMovie(item._id));
-        const filteredMovies = savedMovies.filter(item => item.movieId !== movie.id);
-
-        localStorage.setItem(SAVED_MOVIES, JSON.stringify(filteredMovies));
-
-        movie.isSaved = false;
-        setIsSavedMovies(false);
-      } else {
-        await mainApi.deleteMovie(movie._id);
-
-        setSavedMovies((state) =>
-          state.filter((item) =>
-            item._id !== movie._id));
-        setIsSavedMovies(false);
-      }
-    } catch (err) {
-      console.log(`ошибка: ${err}`);
+          setIsSavedMovies(false);
+          setImage(imageInfoTooltipSuccess);
+          setText(DELETED_MOVIE_MESSAGE);
+          openInfoTooltip();
+        })
+        .catch((err) => {
+          setImage(imageInfoTooltipUnSuccess);
+          setText(UNSUCCESS_MESSAGE);
+          openInfoTooltip();
+          console.log(`ошибка: ${err}`);
+        })
     }
   }
 

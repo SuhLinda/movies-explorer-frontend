@@ -32,7 +32,6 @@ function Movies(
     openInfoTooltip,
     savedMovies,
     setSavedMovies,
-    isSavedMovies,
   }) {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState(JSON.parse(localStorage.getItem(SEARCH)) || []);
@@ -165,6 +164,9 @@ function Movies(
           isSavedMoviesPage={false}
           setSavedMovies={setSavedMovies}
           filterMovie={filterMovie}
+          setImage={setImage}
+          setText={setText}
+          openInfoTooltip={openInfoTooltip}
         />
       }
       <Footer/>

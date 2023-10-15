@@ -188,6 +188,9 @@ function SavedMovies(
           setSavedMovies={setSavedMovies}
           isSavedMoviesPage={true}
           filterMovie={filterSavedMovie}
+          setImage={setImage}
+          setText={setText}
+          openInfoTooltip={openInfoTooltip}
         />
       }
       <Footer/>

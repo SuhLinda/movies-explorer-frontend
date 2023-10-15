@@ -27,6 +27,7 @@ const ADAPTIVE_WEBSITE = 'https://suhlinda.github.io/russian-travel';
 const SINGLE_PAGE_APPLICATION = 'https://github.com/SuhLinda/react-mesto-api-full-gha';
 
 const SUCCESS_MESSAGE = 'Вы успешно зарегистрировались!';
+const DELETED_MOVIE_MESSAGE = 'Фильм удалён!';
 const SUCCESS_MESSAGE_PROFILE = 'Изменения успешно сохранены!';
 const UNSUCCESS_MESSAGE = 'Что-то пошло не так! Попробуйте ещё раз!';
 const ERROR_SERVER_MESSAGE = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
@@ -75,6 +76,7 @@ export {
   ADAPTIVE_WEBSITE,
   SINGLE_PAGE_APPLICATION,
   SUCCESS_MESSAGE,
+  DELETED_MOVIE_MESSAGE,
   SUCCESS_MESSAGE_PROFILE,
   UNSUCCESS_MESSAGE,
   ERROR_SERVER_MESSAGE,
