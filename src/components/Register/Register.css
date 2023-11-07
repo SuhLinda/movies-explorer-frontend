@@ -93,9 +93,12 @@
 }
 
 .register__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #FFFFFF;
   border: none;
-  background-color: #4285F4;
+  background-color: #8B8B8B;
   border-radius: 3px;
   width: 396px;
   min-height: 45px;
@@ -108,7 +111,11 @@
   cursor: pointer;
 }
 
-.register__button:hover {
+.register__button_active {
+  background-color: #4285F4;
+}
+
+.register__button_active:hover {
   opacity: .8;
 }
 

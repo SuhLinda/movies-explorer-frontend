@@ -1,44 +1,90 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import headerLogo from '../../images/header__logo.svg';
+import React from 'react';
+
+import { Link } from 'react-router-dom';
+
 import useFormValidation from '../../hooks/useFormValidation.jsx';
-import InfoTooltip from "../InfoTooltip/InfiTooltip";
 
-function Register({isSuccess}) {
-  const {values, errors, handleChangeForm} = useFormValidation();
-  const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
+import { mainApi } from '../../utils/MainApi.jsx';
 
-  /*
-  function handleInfoTooltip() {
-    setInfoTooltipOpen(true);
-  }*/
+import headerLogo from '../../images/header__logo.svg';
+import imageInfoTooltipSuccess from '../../images/info-tooltip_successfully.svg';
+import imageInfoTooltipUnSuccess from '../../images/info-tooltip_unsuccessfully.svg';
 
-  function closeInfoTooltip() {
-    setInfoTooltipOpen(false);
+import {
+  BASE_PAGE,
+  SIGNIN,
+  MOVIES_PAGE,
+  IS_LOGGED_IN,
+  SUCCESS_MESSAGE,
+  UNSUCCESS_MESSAGE, SAVED_MOVIES,
+} from '../../utils/constants.jsx';
+
+function Register(
+  {
+    setCurrentUser,
+    isLoggedIn,
+    setIsLoggedIn,
+    setImage,
+    setText,
+    navigate,
+    openInfoTooltip,
+    savedMovies,
+  }) {
+  const {
+    values,
+    errors,
+    isValid,
+    handleChangeForm,
+  } = useFormValidation();
+
+  async function onRegister({name, email, password}) {
+    try {
+      const userRegistration = await mainApi.registration(name, email, password);
+      if (userRegistration) {
+        setCurrentUser(userRegistration);
+        setIsLoggedIn(true);
+        setImage(imageInfoTooltipSuccess);
+        setText(SUCCESS_MESSAGE);
+        navigate(MOVIES_PAGE, {replace: true});
+
+        localStorage.setItem(IS_LOGGED_IN, JSON.stringify(isLoggedIn = true));
+        localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedMovies = []));
+      }
+    } catch (res) {
+      setIsLoggedIn(false);
+      setImage(imageInfoTooltipUnSuccess);
+      setText(UNSUCCESS_MESSAGE);
+      console.log(`ошибка: ${res}`);
+    } finally {
+      openInfoTooltip();
+    }
+  }
+
+  function handleSubmitRegister(evt) {
+    evt.preventDefault();
+
+    return onRegister({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    })
   }
 
   return (
     <section className="register">
-      {isSuccess ?
-        <InfoTooltip
-          isOpen={isInfoTooltipOpen}
-          onClose={closeInfoTooltip}
-        /> :
-        <InfoTooltip
-          isOpen={isInfoTooltipOpen}
-          onClose={closeInfoTooltip}
-        />
-      }
-      <Link to='/'>
+      <Link to={BASE_PAGE}>
         <img
           className="register__logo"
           src={headerLogo}
-          alt="logo"/>
-      </Link>
+          alt="logo"
+        />
+      </ Link>
       <h2 className="register__title">
         Добро пожаловать!
       </h2>
-      <form className="register__form">
+      <form
+        className="register__form"
+        onSubmit={handleSubmitRegister}>
         <fieldset className="register__fieldset">
           <label className="register-form-signature">
             Имя
@@ -54,6 +100,9 @@ function Register({isSuccess}) {
             required
             onChange={handleChangeForm}
           />
+          <span className="register__error-active">
+            {errors.name}
+          </span>
           <label className="register-form-signature">
             E-mail
           </label>
@@ -63,9 +112,13 @@ function Register({isSuccess}) {
             id="email"
             name="email"
             value={values.email || ''}
+            pattern="^[\w]+@[A-Za-z]+\.[A-Za-z]{2,30}$"
             required
             onChange={handleChangeForm}
           />
+          <span className="register__error-active">
+            {errors.email}
+          </span>
           <label className="register-form-signature">
             Пароль
           </label>
@@ -80,29 +133,26 @@ function Register({isSuccess}) {
             onChange={handleChangeForm}
           />
           <span className="register__error-active">
-            {errors.name}
-          </span>
-          <span className="register__error-active">
-            {errors.email}
-          </span>
-          <span className="register__error-active">
             {errors.password}
           </span>
         </fieldset>
+        <button
+          className={`register__button ${isValid ? 'register__button_active' : ''}`}
+          type="submit"
+          aria-label="register"
+          disabled={!isValid}>
+          Зарегистрироваться
+        </button>
       </form>
-      <button
-        className="register__button"
-        type="submit"
-        aria-label="register">
-        Зарегистрироваться
-      </button>
       <p className="register__text">
         Уже зарегистрированы?
-        <Link to='/signin' className="register__link">
+        <Link
+          to={SIGNIN}
+          className="register__link">
           <span className="register__signature">
             Войти
           </span>
-        </Link>
+        </ Link>
       </p>
     </section>
   )

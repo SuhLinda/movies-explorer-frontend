@@ -1,0 +1,36 @@
+.more-movie-card_active {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.more-movie-card {
+  display: none;
+}
+
+.more-movie-card__button {
+  background-color: #202020;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: 320px;
+  height: 36px;
+  border-radius: 6px;
+  border: #424242 1px solid;
+  margin: 50px 0 80px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.more-movie-card__button:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 768px) {
+  .more-movie-card__button {
+    width: 240px;
+  }
+}

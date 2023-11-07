@@ -1,20 +1,25 @@
 import { Link } from 'react-router-dom';
 
-import Navigation from '../Navigation/Navigation.jsx';
+import Navigation from './Navigation/Navigation.jsx';
 
 import headerLogo from '../../images/header__logo.svg';
 
-function Header() {
+import { BASE_PAGE } from '../../utils/constants.jsx';
+
+function Header({ isLoggedIn }) {
 
   return (
     <header className="header">
-      <Link to='/'>
+      <Link to={BASE_PAGE}>
         <img
           className="header__logo"
           src={headerLogo}
-          alt="logo"/>
+          alt="logo"
+        />
       </ Link>
-      <Navigation />
+      <Navigation
+        isLoggedIn={isLoggedIn}
+      />
     </header>
   )
 }

@@ -1,3 +1,5 @@
+import { YANDEX, GITHUB_PAGE } from '../../utils/constants.jsx';
+
 function Footer() {
   return (
     <footer className="footer">
@@ -11,14 +13,14 @@ function Footer() {
         <div className="footer__container">
           <a
             className="footer-container-link"
-            href="https://practicum.yandex.ru"
+            href={YANDEX}
             target="_blank"
             rel="noreferrer">
             Яндекс.Практикум
           </a>
           <a
             className="footer-container-link"
-            href="https://github.com/SuhLinda"
+            href={GITHUB_PAGE}
             target="_blank"
             rel="noreferrer">
             Github

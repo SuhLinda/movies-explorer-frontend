@@ -8,7 +8,6 @@ function useClosePopup(isOpen, onClose) {
       if (evt.target.classList.contains('burger-menu_opened' || 'info__tooltip_opened')) {
           onClose();
         }
-
     }
 
     function handleEsc(evt) {
